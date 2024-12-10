@@ -1,0 +1,191 @@
+{% extends 'patients/base.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/admin/liste_centres.css' %}">
+
+<h1>Centres</h1>
+<button class="add-button" onclick="window.location.href='{% url 'create_centre' %}'">+</button>
+{% csrf_token %}
+<div class="file-management-section">
+    <!-- Section Importer -->
+    <div class="file-upload-section">
+        <h3>Importer un centre</h3>
+        <input type="file" name="config_file" id="file-upload" accept=".json" />
+        <button onclick="importConfig()">Charger</button>
+    </div>
+
+    <!-- Section Exporter -->
+    <div class="file-download-section">
+        <h3>Sauvegarder un centre</h3>
+        <button onclick="exportConfig()">Sauvegarder</button>
+    </div>
+</div>
+<ul class="centre-list">
+    {% for centre in centres %}
+    <li class="centre-item">
+        <div class="centre-header">
+            <span>{{ centre.name }}</span>
+            <button class="toggle-button" onclick="toggleDetails({{ centre.id }})">
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <a href="{% url 'edit_centre' centre.id %}" class="edit-link">
+                <i class="fas fa-edit"></i> Modifier
+            </a>
+            <!-- Bouton de suppression -->
+            <button onclick="deleteCentre({{ centre.id }})" class="delete-link">
+                <i class="fas fa-trash-alt"></i> Supprimer
+            </button>
+        </div>
+        <!-- Details des machines et ressources -->
+        <div id="centre-details-{{ centre.id }}" class="hidden centre-details">
+            <div class="machines-section">
+                <h3>Machines</h3>
+                <ul>
+                    {% for machine in centre.machines %}
+                    <li>
+                        <p>{{ machine.name }}</p>
+                        <!-- Bouton pour modifier les preferences de la machine -->
+                        <a href="{% url 'edit_machine_preferences' centre.id machine.name %}" class="edit-link">
+                            <i class="fas fa-edit"></i> Modifier les preferences
+                        </a>
+                    </li>
+                    {% empty %}
+                    <li>
+                        <p>Aucune machines</p>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="resources-section">
+                <h3>Ressources</h3>
+                <ul>
+                    {% for resource in centre.ressources %}
+                    <p>{{ resource.firstName }} {{ resource.lastName }}</p>
+                    {% empty %}
+                    <p>Aucune ressources</p>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+<script>
+
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    function toggleDetails(centreId) {
+        const details = document.getElementById(`centre-details-${centreId}`);
+        const icon = details.previousElementSibling.querySelector('.toggle-button i');
+        if (details.classList.contains('hidden')) {
+            details.classList.remove('hidden');
+            icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+        } else {
+            details.classList.add('hidden');
+            icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+        }
+    }
+
+    // Fonction JavaScript pour supprimer un centre
+    function deleteCentre(centreId) {
+        if (confirm("Etes-vous sur de vouloir supprimer ce centre ?")) {
+            fetch(`http://localhost:5001/Admin/deleteCentre/${centreId}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert("Centre supprime avec succes !");
+                        location.reload();
+                    } else {
+                        alert("Erreur lors de la suppression du centre.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erreur lors de la requete :", error);
+                    alert("Erreur de connexion au serveur.");
+                });
+        }
+    }
+
+    function importConfig() {
+        const fileInput = document.getElementById("file-upload");
+        const file = fileInput.files[0];
+
+        if (!file) {
+            alert("Veuillez selectionner un fichier a importer.");
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const content = event.target.result;
+            try {
+                const config = JSON.parse(content);
+                fetch('{% url "import_centre_config" %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken,
+                    },
+
+                    body: JSON.stringify(config)
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            alert("Configuration importee avec succes !");
+                            location.reload();
+                        } else {
+                            alert("Erreur lors de l'importation de la configuration.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Erreur lors de la requete :", error);
+                        alert("Erreur de connexion au serveur.");
+                    });
+            } catch (error) {
+                alert("Le fichier est invalide ou mal formate.");
+                console.error("Erreur de parsing :", error);
+            }
+        };
+
+        reader.readAsText(file);
+    }
+
+
+    function exportConfig() {
+        fetch(`{% url 'export_centre' %}`, {
+            method: 'GET'
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    alert("Erreur lors de la recuperation des configurations.");
+                    throw new Error("Erreur serveur.");
+                }
+            })
+            .then(config => {
+                const dataStr = JSON.stringify(config, null, 2);
+
+                const blob = new Blob([dataStr], { type: 'application/json' });
+                const url = window.URL.createObjectURL(blob);
+
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "config-centres.json";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => {
+                console.error("Erreur lors de l'exportation :", error);
+                alert("Erreur lors de l'exportation de la configuration.");
+            });
+    }
+</script>
+
+{% endblock %}

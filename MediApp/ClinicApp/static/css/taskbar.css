@@ -1,0 +1,102 @@
+/* CSS pour la barre de tâches */
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 8px 20px;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    z-index: -90;
+    font-size: 0.9em; /* Réduit la taille du texte pour un look plus fin */
+}
+
+    /* Conteneur pour le titre */
+    .header-row h2 {
+        margin: 0;
+        font-size: 1.5em;
+        color: #333;
+        flex-grow: 1;
+    }
+
+/* Barre de tâches plus fine */
+.task-bar {
+    display: flex;
+    gap: 8px; /* Espace entre les boutons */
+    align-items: center;
+}
+
+    /* Boutons de la barre de tâches */
+    .task-bar button {
+        padding: 6px 12px;
+        font-size: 0.85em;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .task-bar button:hover {
+            background-color: #0056b3;
+        }
+
+.add-patient-btn-bar {
+    background-color: #28a745;
+}
+
+    .add-patient-btn-bar:hover {
+        background-color: #218838;
+    }
+
+.view-patients-btn-bar {
+    background-color: #17a2b8;
+}
+
+    .view-patients-btn-bar:hover {
+        background-color: #138496;
+    }
+
+/* Dropdown du sélecteur de durée */
+.select-container select {
+    padding: 4px 8px;
+    font-size: 0.85em;
+}
+
+/* Style du formulaire de sélection de machine */
+.header-row form {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+    .header-row form select,
+    .header-row form button {
+        padding: 6px 8px;
+        font-size: 0.85em;
+    }
+
+.hidden {
+    display: none;
+}
+
+.save-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+    .save-button.glow {
+        box-shadow: 0 0 8px 4px rgba(255, 215, 0, 0.7); /* effet glow doré */
+    }
+
+    .save-button:hover {
+        background-color: #45a049;
+    }

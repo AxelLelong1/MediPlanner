@@ -1,0 +1,102 @@
+/* Structure de base */
+.homepage-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.homepage_title_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px; /* Ajustez la marge interne selon votre besoin */
+}
+
+.homepage-title {
+    font-size: 2.5rem;
+    text-align: left;
+    margin-bottom: 40px;
+    color: #2c3e50;
+    font-family: 'Roboto', sans-serif;
+}
+
+.homepage_status {
+    text-align: right;
+    color: #2c3e50;
+    margin-bottom: 40px;
+    font-family: 'Roboto', sans-serif;
+}
+/* Dashboard Grid Layout */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* Card design for stats */
+.stat-card, .schedule-preview, .quick-links {
+    background-color: #f7f9fb;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Titles */
+.stat-title, .schedule-title, .quick-title {
+    font-size: 1.5rem;
+    color: #34495e;
+    margin-bottom: 15px;
+}
+
+/* Lists */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+    ul li {
+        font-size: 1.1rem;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+strong {
+    color: #2c3e50;
+}
+
+/* Quick Actions */
+.quick-link {
+    display: inline-block;
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+    .quick-link:hover {
+        background-color: #2980b9;
+    }
+
+.maintenance-list {
+    list-style-type: none; /* Enlève les puces */
+    padding: 0; /* Enlève le padding par défaut */
+}
+
+.maintenance-item {
+    background-color: #f9f9f9; /* Couleur de fond pour chaque item */
+    border: 1px solid #ddd; /* Bordure pour chaque item */
+    padding: 10px; /* Espacement interne */
+    margin-bottom: 5px; /* Espacement entre les items */
+    border-radius: 5px; /* Coins arrondis */
+}
+
+.machine-icon {
+    width: 20px; /* Largeur de l'icône */
+    height: auto; /* Hauteur automatique */
+    margin-right: 10px; /* Espacement entre l'icône et le texte */
+}

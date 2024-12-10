@@ -1,0 +1,84 @@
+{% extends 'patients/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/choose.css' %}">
+
+<div class="container">
+    <h2 class="title">Choisissez une machine pour le patient</h2>
+
+    <form method="POST" class="machine-selection-form">
+        {% csrf_token %}
+
+        <!-- Sélection du centre -->
+        <div class="center-selection">
+            <h3>Choisissez un centre</h3>
+            <select name="centre" id="centre-select" class="center-dropdown" required>
+                {% for centre in centres %}
+                <option value="{{ centre.id }}" {% if centre.id == selected_centre.id %}selected{% endif %}>
+                    {{ centre.name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Machines Préférées -->
+        {% if preferred_machine %}
+        <div class="preferred-machine">
+            <h3>Machine Préférée</h3>
+            <p class="machine-info">
+                <strong>{{ preferred_machine.preferred.name }}</strong>
+            </p>
+        </div>
+        {% endif %}
+
+        <!-- Machines Recommandées -->
+        {% if preferred_machine.optimum %}
+        <div class="recommended-machine">
+            <h3>Machine Recommandée (Charge de travail)</h3>
+            <p class="machine-info">
+                <strong>{{ preferred_machine.optimum.name }}</strong>
+            </p>
+        </div>
+        {% endif %}
+
+        <!-- Machines Compatibles -->
+        <div class="compatible-machines">
+            <h3>Machines Compatibles</h3>
+            <ul>
+                {% for machine in other_machines %}
+                <li class="machine-item">
+                    <input type="radio" name="machine" value="{{ machine.name }}" id="machine_{{ machine.name }}" class="radio-input" required>
+                    <label for="machine_{{ machine.name }}" class="radio-label">
+                        <strong>{{ machine.name }}</strong>
+                        <span class="tooltip">Cliquez pour sélectionner cette machine</span>
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="submit-section">
+            <button type="submit" class="submit-button">Confirmer</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('centre-select').addEventListener('change', function () {
+        const selectedCentreId = this.value;
+
+        // Récupère les paramètres actuels de l'URL
+        const currentUrlParams = new URLSearchParams(window.location.search);
+
+        // Met à jour ou ajoute le paramètre 'centre' avec la valeur sélectionnée
+        currentUrlParams.set('centre', selectedCentreId);
+
+        // Reconstruit l'URL avec les paramètres mis à jour
+        const newUrl = `${window.location.pathname}?${currentUrlParams.toString()}`;
+
+        // Redirige vers la nouvelle URL
+        window.location.href = newUrl;
+    });
+</script>
+
+{% endblock %}

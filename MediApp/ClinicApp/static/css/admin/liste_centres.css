@@ -1,0 +1,176 @@
+h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+.centre-list {
+    list-style: none;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+
+}
+
+.centre-item {
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.centre-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggle-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.machines-section, .resources-section {
+    margin-top: 5px;
+}
+
+    .machines-section h3, .resources-section h3 {
+        font-size: 1rem;
+        font-weight: bold;
+        color: #007bff;
+    }
+
+
+.add-button {
+    font-size: 20px;
+    width: 35px;
+    height: 35px;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+    top: -8px;
+}
+
+    .add-button:hover {
+        background-color: #45a049;
+    }
+
+.edit-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+    .edit-link:hover {
+        color: #0056b3;
+    }
+
+.fas.fa-edit {
+    font-size: 0.9em;
+}
+
+.delete-link {
+    background-color: #ff4d4d; /* Couleur rouge pour signaler une action dangereuse */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+    .delete-link:hover {
+        background-color: #cc0000; /* Rouge plus sombre au survol */
+    }
+
+    .delete-link i {
+        margin-right: 4px; /* Espace entre l'icône et le texte */
+        font-size: 16px;
+    }
+
+/* Conteneur global pour aligner les sections */
+.file-management-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px; /* Espacement entre les deux sections */
+    margin: 20px auto;
+    max-width: 800px; /* Largeur maximale pour éviter un étalement excessif */
+}
+
+/* Style général pour les boutons */
+.file-upload-section button,
+.file-download-section button {
+    background-color: #4CAF50; /* Vert agréable */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    /* Effet au survol */
+    .file-upload-section button:hover,
+    .file-download-section button:hover {
+        background-color: #45a049; /* Couleur légèrement plus foncée */
+    }
+
+/* Style pour le bouton de sélection de fichier */
+.file-upload-section input[type="file"] {
+    display: inline-block;
+    font-size: 14px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    margin-bottom: 10px; /* Espacement entre le champ et le bouton */
+}
+
+    /* Effet au survol pour le champ de fichier */
+    .file-upload-section input[type="file"]:hover {
+        border-color: #4CAF50; /* Met en valeur le champ au survol */
+    }
+
+/* Section de gestion alignée avec un fond clair */
+.file-upload-section,
+.file-download-section {
+    flex: 1; /* Les sections prennent une largeur égale */
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+    /* Titres */
+    .file-upload-section h3, .file-download-section h3 {
+        margin: 0 0 10px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+    }

@@ -1,0 +1,732 @@
+{% extends 'patients/base.html' %}
+{% load static %}
+{% block content %}
+
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+<link rel="stylesheet" href="{% static 'css/schedule.css' %}">
+<link rel="stylesheet" href="{% static 'css/schedule_pat_form.css' %}">
+<link rel="stylesheet" href="{% static 'css/taskbar.css' %}">
+<link rel="stylesheet" href="{% static 'css/popup.css' %}">
+<link rel="stylesheet" href="{% static 'css/addpopup.css' %}">
+
+<h2>Planning des traitements</h2>
+
+<!-- En-tête avec titre et sélection de machine -->
+<div class="header-row">
+    <!-- Barre de boutons pour ajout de patient et affichage de liste de patients -->
+    <div class="task-bar">
+        <button class="add-patient-btn-bar" onclick="toggleSidebar()">Ajouter un patient</button>
+        <button class="view-patients-btn-bar" onclick="togglePatientList()">Voir les patients</button>
+        <button id="saveButton" class="save-button" onclick="saveChanges()">
+            <i class="fas fa-save"></i> Save
+        </button>
+    </div>
+
+
+
+    <div class="select-container">
+        <select id="slotDurationSelector">
+            <option value="00:10:00">10 minutes</option>
+            <option value="00:30:00" selected>30 minutes</option>
+            <option value="01:00:00">1 heure</option>
+            <option value="custom">Custom...</option>
+        </select>
+    </div>
+
+    <form method="GET" action="{% url 'view_schedule' %}">
+        {% csrf_token %}
+        <label for="centre">Choisir un centre :</label>
+        <select id="centre" name="centre">
+            <option value="" hidden>Sélectionner un centre</option>
+            {% for centre in centres %}
+            <option value="{{ centre.id }}" {% if selected_centre == centre.id|stringformat:"s" %}selected{% endif %}>{{ centre.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="machine">Choisir une machine :</label>
+        <select id="machine" name="machine">
+            {% if selected_machine %}
+            <option value="{{selected_machine}}" hidden>{{selected_machine}}</option>
+            {% else %}
+            <option value="" hidden>Sélectionner un centre d'abord</option>
+            {% endif %}
+        </select>
+        <button type="submit">Voir le planning</button>
+    </form>
+</div>
+
+<!-- JSON pour les données du planning -->
+{{ schedule_data|json_script:"schedule-data" }}
+{{ events|json_script:"events_data" }}
+
+<!-- Conteneur principal pour la vue avec sidebar et planning -->
+<div class="main-container">
+    <!-- Panneau pour afficher la liste des patients -->
+    <div class="patient-list-sidebar" id="patientListSidebar">
+        <button class="close-btn" onclick="togglePatientList()">&times;</button>
+        <div class="patient-list" id="patientList">
+            <h3>Liste des Patients</h3>
+
+            <!-- Ajoutez plus d'éléments patient ici -->
+        </div>
+    </div>
+
+    <!-- Sidebar de formulaire d'ajout de patient -->
+    <div class="patient-sidebar" id="patientSidebar">
+        <button class="close-btn" onclick="toggleSidebar()">&times;</button>
+        <div class="patient-form">
+            <h3>Ajouter un Patient</h3>
+            <form method="post" class="formClass" action="{% url 'add_patient' %}">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="form.nom">Nom</label>
+                    {{ form.nom }}
+                </div>
+
+                <div class="form-group">
+                    <label for="form.prenom">Prénom</label>
+                    {{ form.prenom }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_start_date">Date</label>
+                    {{ form.start_date }}
+                    <label for="require_hour">Heure requise</label>
+                    <input type="checkbox" id="require_hour" name="require_hour" onclick="toggleTimeField()">
+                    <div style="display:none" id="time_field">
+                        <label for="id_start_hour">Heure</label>
+                        {{ form.start_hour }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="form.localization">Localisation</label>
+                    {{ form.localization }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_tumor_size">Taille</label>
+                    {{ form.tumor_size_x }}
+                    {{ form.tumor_size_y }}
+                </div>
+
+                <button type="submit" class="submit-btn">Soumettre</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Conteneur du planning FullCalendar -->
+    <div class="calendar-container" id="calendar"></div>
+</div>
+
+<!-- Tooltip d'informations -->
+<div class="tooltip" id="tooltip"></div>
+
+<!-- SurCouche créneaux patient -->
+<div id="editPatientPopup" class="popup-overlay">
+    <div class="popup-content" id="popupPatient">
+        <button class="close-btn" onclick="closeEditPatientPopup()">&times;</button>
+        <h3>Modifier les horaires pour <span id="patientName"></span></h3>
+
+        <div id="scheduleList">
+            <!-- Exemples de créneaux pour les tests -->
+        </div>
+    </div>
+</div>
+
+<!-- Surcouche pour éditer un créneau -->
+<div id="editScheduleOverlay" class="overlay hidden">
+    <div class="overlay-content">
+        <button class="overlay-close-btn" onclick="closeEditScheduleOverlay()">&times;</button>
+        <h3>Modifier le créneau</h3>
+        <form id="editScheduleForm">
+            <div class="form-group">
+                <label for="editStart">Début</label>
+                <input type="datetime-local" id="editStart" name="start" required>
+            </div>
+            <div class="form-group">
+                <label for="editEnd">Fin</label>
+                <input type="datetime-local" id="editEnd" name="end" required>
+            </div>
+            <div class="form-group">
+                <label for="centre">Choisir un centre :</label>
+                <select id="editScheduleCentre" name="editScheduleCentre">
+                    <option value="" hidden>Sélectionner un centre</option>
+                    {% for centre in centres %}
+                    <option value="{{ centre.id }}">{{ centre.name }}</option>
+                    {% endfor %}
+                </select>
+                <label for="editMachine">Machine</label>
+                <select id="editMachine" name="machine">
+                    <option value="" hidden>Sélectionner une machine</option>
+                    {% for machine in machines %}
+                    <option value="{{ machine }}">{{ machine }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="submit-btn">Sauvegarder</button>
+        </form>
+    </div>
+</div>
+
+<!-- Surcouche pour l'ajout de créneau -->
+<div id="add-popup-overlay" class="add-popup-overlay">
+    <div class="add-popup-content">
+        <button class="overlay-close-btn" onclick="closeAddPopup()">&times;</button>
+        <h3>Ajouter un créneau pour <span id="add-popup-patient-name"></span></h3>
+
+        <form id="add-popup-form">
+            <label for="centre">Choisir un centre :</label>
+            <select id="addPopupCentre" name="addPopupCentre">
+                <option value="" hidden>Sélectionner un centre</option>
+                {% for centre in centres %}
+                <option value="{{ centre.id }}">{{ centre.name }}</option>
+                {% endfor %}
+            </select>
+            <label for="machine">Machine :</label>
+            <select id="add-popup-machine" name="machine">
+                <option value="" hidden>Sélectionner une machine</option>
+                {% for machine in machines %}
+                <option value="{{ machine }}">{{ machine }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="add-popup-start-datetime">Date et heure de début :</label>
+            <input type="datetime-local" id="add-popup-start-datetime" name="startDateTime" required>
+
+            <label for="add-popup-end-datetime">Date et heure de fin :</label>
+            <input type="datetime-local" id="add-popup-end-datetime" name="endDateTime" required>
+
+            <button type="button" class="savesubmit-btn" onclick="saveAddPopup()">Enregistrer</button>
+        </form>
+    </div>
+</div>
+
+<script>
+
+/// DECLENCHEUR -----------------------------------------------------------------------------------------------------------------------------------
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const centreSelect = document.getElementById('centre');
+        if (centreSelect.value) { // Vérifie qu'un centre est déjà sélectionné
+            centreSelect.dispatchEvent(new Event('change')); // Déclenche manuellement l'événement change
+        }
+    });
+
+/// EVENT LISTENERS -----------------------------------------------------------------------------------------------------------------------------------
+
+    let calendar;
+    // Récupérer les événements modifiés
+    let updatedEvents = [];
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const calendarEl = document.getElementById('calendar');
+        const tooltip = document.getElementById('tooltip');
+
+        // Initialisation du calendrier
+        calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'timeGridWeek',
+            firstDay: 1,
+            hiddenDays: [0],
+            locale: 'fr',
+            timeZone: 'Europe/Paris',
+            headerToolbar: {
+                left: "prev,next today",
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            slotMinTime: "06:00:00",
+            slotMaxTime: "24:00:00",
+
+            // Classe dynamique pour les événements
+            eventClassNames: function (info) {
+                return [info.event.extendedProps.status];
+            },
+
+            eventMouseEnter: function (info) {
+                tooltip.textContent = info.event.title + " - Description ici";
+                const eventPosition = info.el.getBoundingClientRect();
+                tooltip.style.top = eventPosition.top + window.scrollY - tooltip.offsetHeight - 5 + 'px';
+                tooltip.style.left = eventPosition.left + window.scrollX + info.el.offsetWidth / 2 - tooltip.offsetWidth / 2 + 'px';
+                tooltip.style.display = 'block';
+            },
+
+            eventMouseLeave: function () {
+                tooltip.style.display = 'none';
+            },
+
+            eventDrop: function (info) {
+                markUnsavedChanges(info);
+            },
+
+            eventResize: function (info) {
+                markUnsavedChanges(info);
+            },
+
+            // Mise à jour du planning en fonction des dates sélectionnées
+            datesSet: function (info) {
+                fetchEventsFromDjango(info.startStr, info.endStr, info.view.type);
+            },
+        });
+
+        calendar.render();
+    });
+
+    document.getElementById('slotDurationSelector').addEventListener('change', function () {
+        const selectedValue = this.value;
+        if (selectedValue === 'custom') {
+            const customDuration = prompt("Veuillez entrer la durée sous la forme HH:MM:SS (ex: 00:20:00)");
+            if (/^([0-1]\d|2[0-3]):[0-5]\d:[0-5]\d$/.test(customDuration)) {
+                calendar.setOption('slotDuration', customDuration);
+            } else {
+                alert("Durée invalide. Assurez-vous d'utiliser le format HH:MM:SS.");
+            }
+        } else {
+            calendar.setOption('slotDuration', selectedValue);
+        }
+    });
+
+    function setupCentreMachineDependency(centreSelectorId, machineSelectorId) {
+        const centreSelect = document.getElementById(centreSelectorId);
+        const machineSelect = document.getElementById(machineSelectorId);
+
+        if (!centreSelect || !machineSelect) {
+            console.error(`Les IDs ${centreSelectorId} ou ${machineSelectorId} sont introuvables.`);
+            return;
+        }
+
+        // Ajout de l'événement de changement pour chaque centre spécifique
+        centreSelect.addEventListener('change', function () {
+            const centreId = this.value;
+
+            // Désactive le select des machines avant d'envoyer la requête
+            machineSelect.disabled = true;
+            machineSelect.innerHTML = '<option value="" hidden>Chargement...</option>';
+
+            if (centreId) {
+                // Envoi de la requête Ajax pour récupérer les machines
+                fetch(`/get_machines_for_centre/?centre_id=${centreId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const machines = data.machines;
+
+                        // Réinitialisation et ajout des nouvelles options
+                        machineSelect.innerHTML = '<option value="" hidden>Sélectionner une machine</option>';
+
+                        if (machines.length > 0) {
+                            machines.forEach(machine => {
+                                const option = document.createElement('option');
+                                option.value = machine.name.toUpperCase();
+                                option.textContent = machine.id.toUpperCase();
+                                machineSelect.appendChild(option);
+                            });
+                            machineSelect.disabled = false;
+                        } else {
+                            machineSelect.innerHTML = '<option value="" hidden>Aucune machine disponible</option>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur lors de la récupération des machines:', error);
+                        machineSelect.innerHTML = '<option value="" hidden>Erreur de chargement</option>';
+                    });
+            } else {
+                // Réinitialisation en cas de sélection vide
+                machineSelect.innerHTML = '<option value="" hidden>Sélectionner un centre d\'abord</option>';
+                machineSelect.disabled = true;
+            }
+        });
+
+        // Si un centre est déjà sélectionné au chargement de la page
+        if (centreSelect.value) {
+            centreSelect.dispatchEvent(new Event('change'));
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        setupCentreMachineDependency('centre', 'machine'); // Pour le sélecteur principal
+        setupCentreMachineDependency('editScheduleCentre', 'editMachine'); // Pour la surcouche d'édition
+        setupCentreMachineDependency('addPopupCentre', 'add-popup-machine'); // Pour la surcouche d'ajout
+    });
+
+/// DISPLAY -----------------------------------------------------------------------------------------------------------------------------------
+
+    function displayPatients(patients) {
+        const popupconent = document.getElementById('popupPatient')
+        const patientList = document.getElementById('patientList');
+        patientList.innerHTML = ''; // Vide la liste avant d'ajouter les nouveaux patients
+
+        if (document.getElementsByClassName('add-schedule-btn').length == 0)
+        {
+            const button = document.createElement('div')
+            button.innerHTML = `
+                <!-- Bouton d'ajout de créneau -->
+                <button class="add-schedule-btn" onclick="openAddSchedule('${patients[0].firstName} ${patients[0].lastName}')">
+                    Ajouter créneau
+                </button>
+                `;
+            popupconent.appendChild(button)
+        }
+
+
+        patients.forEach(patient => {
+            const patientItem = document.createElement('div');
+            patientItem.classList.add('patient-item');
+
+            // Structure HTML pour chaque patient
+            patientItem.innerHTML = `
+            <div>
+                <div class="patient-name">${patient.firstName} ${patient.lastName}</div>
+                <div class="patient-info">Nombre de créneaux : ${patient.schedules.length}</div>
+            </div>
+            <div class="patient-actions">
+                <button onclick="openEditPatientPopup('${patient.firstName} ${patient.lastName}')"><i class="fas fa-edit"></i></button>
+                <button onclick="removePatient('${patient.firstName} ${patient.lastName}')"><i class="fas fa-trash"></i></button>
+            </div>
+        `;
+
+            patientList.appendChild(patientItem);
+        });
+    }
+
+/// ADD / CHANGE / REMOVE -----------------------------------------------------------------------------------------------------------------------------------
+
+    function removePatient(patientName) {
+        const confirmation = confirm(`Êtes-vous sûr de vouloir supprimer le patient : ${patientName} ?`);
+        if (confirmation) {
+            deletePatient(patientName);
+        }
+    }
+
+    function openEditPatientPopup(patientName) {
+        document.getElementById('editPatientPopup').style.display = 'block';
+        document.getElementById('patientName').textContent = patientName;
+
+        fetchSchedules(patientName);
+    }
+
+    function closeEditPatientPopup() {
+        document.getElementById('editPatientPopup').style.display = 'none';
+    }
+
+    // Fonction pour afficher la surcouche avec les données du schedule
+    function openEditScheduleOverlay(schedule) {
+        const overlay = document.getElementById('editScheduleOverlay');
+        overlay.classList.remove('hidden');
+
+        // Pré-remplir les champs du formulaire
+        document.getElementById('editStart').value = schedule.startTime;
+        document.getElementById('editEnd').value = schedule.endTime;
+        document.getElementById('editMachine').value = schedule.machine;
+
+        // Ajouter un événement de soumission pour sauvegarder les modifications
+        const form = document.getElementById('editScheduleForm');
+        form.onsubmit = function (event) {
+            event.preventDefault();
+            saveSchedule(schedule.id);
+        };
+    }
+
+    // Fonction pour fermer la surcouche
+    function closeEditScheduleOverlay() {
+        const overlay = document.getElementById('editScheduleOverlay');
+        overlay.classList.add('hidden');
+    }
+
+    function removeSchedule(id) {
+        deleteSchedule(id);
+    }
+
+    function openAddSchedule(patientName) {
+        // Affiche la surcouche et met à jour le nom du patient
+        document.getElementById("add-popup-overlay").style.display = "flex";
+        document.getElementById("add-popup-patient-name").textContent = patientName;
+    }
+
+    function closeAddPopup() {
+        // Ferme la surcouche
+        document.getElementById("add-popup-overlay").style.display = "none";
+    }
+
+    function saveAddPopup() {
+        // Récupère les valeurs des champs
+        const machine = document.getElementById("add-popup-machine").value;
+        const startDateTime = document.getElementById("add-popup-start-datetime").value;
+        const endDateTime = document.getElementById("add-popup-end-datetime").value;
+        const patName = document.getElementById("add-popup-patient-name").innerHTML;
+
+        if (!machine || !startDateTime || !endDateTime) {
+            alert("Veuillez remplir tous les champs.");
+            return;
+        }
+
+        // Test : Afficher les valeurs
+        addSchedule(patName, startDateTime, endDateTime, machine)
+        // alert(`Créneau ajouté :\nMachine : ${machine}\nDébut : ${startDateTime}\nFin : ${endDateTime} for ${patName}`);
+
+        // Ferme la surcouche après validation
+        closeAddPopup();
+    }
+
+/// TOGGLES -----------------------------------------------------------------------------------------------------------------------------------
+
+    function toggleSidebar() {
+        const sidebar = document.getElementById('patientSidebar');
+        const calendarContainer = document.getElementById('calendar');
+        sidebar.classList.toggle('active');
+
+        if (sidebar.classList.contains("active")) {
+            calendarContainer.style.marginLeft = "300px";
+        } else {
+            calendarContainer.style.marginLeft = "0";
+        }
+    }
+
+    function togglePatientList() {
+        const patientSidebar = document.getElementById("patientListSidebar");
+        patientSidebar.classList.toggle("show");
+    }
+
+    function toggleTimeField() {
+        const timeField = document.getElementById('time_field');
+        const requireHour = document.getElementById('require_hour');
+
+        // Si la case est cochée, affiche le champ de l'heure
+        if (requireHour.checked) {
+            timeField.style.display = 'block';
+        } else {
+            timeField.style.display = 'none';
+        }
+    }
+
+    function addSchedule(name, start, end, machine) {
+
+        // Requête AJAX pour sauvegarder les modifications
+        fetch('{% url "addSchedule" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken()
+            },
+            body: JSON.stringify({
+                name: name,
+                start: start,
+                end: end,
+                machine: machine
+            }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    location.reload(); // Recharge la page pour afficher les modifications
+                } else {
+                    alert('Erreur lors de la modification du créneau');
+                }
+            })
+            .catch((error) => console.error('Erreur:', error));
+
+    }
+
+    function deleteSchedule(id) {
+        // Requête AJAX pour sauvegarder les modifications
+        fetch('{% url "deleteSchedule" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken()
+            },
+            body: JSON.stringify({
+                id: id
+            }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    closeEditScheduleOverlay();
+                    location.reload(); // Recharge la page pour afficher les modifications
+                } else {
+                    alert('Erreur lors de la modification du créneau');
+                }
+            })
+            .catch((error) => console.error('Erreur:', error));
+
+    }
+
+    function deletePatient(patientName) {
+        console.log("DELETE PATIENT CALLED");
+        fetch('{% url "deletePatient" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken()
+            },
+            body: JSON.stringify({
+                patientName: patientName
+            }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    location.reload(); // Recharge la page pour afficher les modifications
+                } else {
+                    alert('Erreur lors de la modification du créneau');
+                }
+            })
+            .catch((error) => console.error('Erreur:', error));
+    }
+
+    /// SAVING -----------------------------------------------------------------------------------------------------------------------------------
+
+    function saveSchedule(id) {
+        const updatedStart = document.getElementById('editStart').value;
+        const updatedEnd = document.getElementById('editEnd').value;
+        const updatedMachine = document.getElementById('editMachine').value;
+
+        // Requête AJAX pour sauvegarder les modifications
+        fetch('{% url "updateSchedule" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken()
+            },
+            body: JSON.stringify({
+                id: id,
+                start: updatedStart,
+                end: updatedEnd,
+                machine: updatedMachine
+            }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    // alert('Créneau modifié avec succès');
+                    closeEditScheduleOverlay();
+                    location.reload(); // Recharge la page pour afficher les modifications
+                } else {
+                    alert('Erreur lors de la modification du créneau');
+                }
+            })
+            .catch((error) => console.error('Erreur:', error));
+
+    }
+
+    function markUnsavedChanges(info) {
+        hasUnsavedChanges = true;
+        const saveButton = document.getElementById('saveButton');
+        saveButton.classList.add('glow');
+        const event = info.event;
+        if (updatedEvents.some(x => x.id == event.id)) {
+            updatedEvents.pop(updatedEvents.indexOf(x => x.id == event.id))
+        }
+        updatedEvents.push(event)
+    }
+
+    function saveChanges() {
+        const saveButton = document.getElementById('saveButton');
+
+        fetch("{% url 'updateEvents' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken()
+            },
+            body: JSON.stringify({ events: updatedEvents })
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Erreur lors de la sauvegarde des modifications.');
+                return response.json();
+            })
+            .then(data => {
+                console.log('Modifications sauvegardées:', data);
+                hasUnsavedChanges = false;
+                saveButton.classList.remove('glow');
+                updatedEvents = [];
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                updatedEvents = [];
+            });
+    }
+
+    /// FETCH -----------------------------------------------------------------------------------------------------------------------------------
+
+    function fetchEventsFromDjango(startDate, endDate, viewType) {
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Extraire la valeur de "machine"
+        const machineValue = urlParams.get('machine'); 
+
+        fetch("{% url 'fetchEventsChanges' %}", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRFToken() },
+            body: JSON.stringify({ start: startDate, end: endDate, view: viewType, machine: machineValue })
+        })
+            .then(response => response.json())
+            .then(data => {
+                calendar.removeAllEvents();
+                calendar.addEventSource(data.events);
+                displayPatients(data.addedPatients);
+            })
+            .catch(error => console.error("Erreur lors de la récupération des événements :", error));
+    }
+
+    // Fonction AJAX pour récupérer les créneaux du patient
+    function fetchSchedules(patientName) {
+        // Assurez-vous que vous avez un endpoint dans Django pour obtenir les horaires
+        fetch("{% url 'get_patient_schedules' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken()
+            },
+            body: JSON.stringify({
+                'patient_name': patientName  // Passer le nom du patient dans la requête
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+
+                // Vider la liste actuelle des créneaux dans le popup
+                const scheduleList = document.getElementById('scheduleList');
+                scheduleList.innerHTML = '';  // Clear the previous schedule items
+
+                // Si des créneaux sont retournés, les afficher
+                if (data.schedules && data.schedules.length > 0) {
+                    data.schedules.forEach(schedule => {
+                        const startDate = new Date(schedule.startTime);
+                        const endDate = new Date(schedule.endTime);
+
+                        const day = startDate.getDate().toString().padStart(2, '0'); // Jour avec un zéro initial si nécessaire
+                        const month = (startDate.getMonth() + 1).toString().padStart(2, '0'); // Mois avec un zéro initial si nécessaire
+                        const formattedDate = `${day}/${month}`;  // Format dd/mm
+
+                        const startHour = startDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+                        const endHour = endDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
+                        const scheduleItem = document.createElement('div');
+                        scheduleItem.classList.add('schedule-item');
+
+                        scheduleItem.innerHTML = `
+                            <span>Jour: ${formattedDate}</span>
+                            <span>Machine: ${schedule.machine}</span>
+                            <span>Début: ${startHour}</span>
+                            <span>Fin: ${endHour}</span>
+                            <button onclick='openEditScheduleOverlay(${JSON.stringify(schedule)})'><i class="fas fa-edit"></i> Modifier</button>
+                            <button onclick="removeSchedule('${schedule.id}')"><i class="fas fa-trash"></i> Supprimer</button>
+                            `;
+
+                        scheduleList.appendChild(scheduleItem);  // Ajouter le créneau à la liste
+                    });
+                } else {
+                    // Si aucun créneau n'est disponible
+                    scheduleList.innerHTML = '<p>Aucun créneau trouvé pour ce patient.</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Erreur lors de la récupération des créneaux:', error);
+            });
+    }
+
+    function getCSRFToken() {
+        return document.querySelector('[name=csrfmiddlewaretoken]').value;
+    }
+</script>
+
+{% endblock %}

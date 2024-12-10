@@ -1,0 +1,44 @@
+{% extends 'patients/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<div class="homepage-container">
+    <div class="homepage_title_container">
+        <h1 class="homepage-title">Bienvenue sur MediApp</h1>
+        <h2 class="homepage_status">Status {{ name }}</h2>
+    </div>
+
+    <div class="dashboard">
+        <div class="stat-card">
+            <h3 class="stat-title">Stats</h3>
+            <ul>
+                <li><strong>RDV aujourd'hui:</strong> {{ numberPatient }}</li>
+                <li>
+                    <strong>Machines en Maintenance:</strong>
+                    <ul class="maintenance-list">
+                        {% for machine in machines_maintenance %}
+                        <li class="maintenance-item">{{ machine.machineName }}  {{ machine.startDate|date:"H:i" }} - {{ machine.endDate|date:"H:i" }}</li>
+                        {% empty %}
+                        <li class="maintenance-item">Aucune</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="schedule-preview">
+            <h3 class="schedule-title">Quoi de neuf aujourd'hui ?</h3>
+            <!--<p><strong>Prochain patient:</strong> {{ next_patient_name }} at {{ next_patient_time }}</p>-->
+        </div>
+
+        <div class="quick-links">
+            <h3 class="quick-title">Actions rapides</h3>
+            <ul>
+                <li><a href="{% url 'add_patient' %}" class="quick-link">Ajouter un patient</a></li>
+                <li><a href="{% url 'view_schedule' %}" class="quick-link">Voir le planning</a></li>
+                <li><a href="{% url 'feedback' %}" class="quick-link">Feedback</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

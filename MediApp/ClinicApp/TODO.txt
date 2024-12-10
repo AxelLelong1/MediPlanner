@@ -1,0 +1,3 @@
+Verifier la date time envoyer à l'api dans la view add_patient
+Sur python correct
+envoyé basique 01-01-0001-00:00 => CRASH

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Clinic Management</title>
+    
+    {% load static %}  <!-- Charger le tag static -->
+    
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="{% url 'view_schedule' %}"><i class="fas fa-calendar-alt"></i> Voir Planning</a></li> <!-- Lien vers le planning -->
+            <li style="margin-left: auto;">
+                <!-- Pousse les elements suivants a droite -->
+                <a href="{% url 'feedback' %}">
+                    <i class="fas fa-comment-dots"></i> FeedBack
+                </a>
+            </li>
+            <li>
+                <a href="/admin/">
+                    <i class="fas fa-user-shield"></i> Admin
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

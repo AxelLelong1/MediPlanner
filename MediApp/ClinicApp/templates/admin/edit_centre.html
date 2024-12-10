@@ -1,0 +1,63 @@
+{% extends 'patients/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/admin/edit_centre.css' %}">
+
+<div class="edit-centre-container">
+    <h1 class="edit-centre-title">Modifier le Centre : {{ centre.name }}</h1>
+
+    <form class="edit-centre-form" method="post">
+        {% csrf_token %}
+
+        <div class="edit-centre-forms-row">
+            <!-- Ressources humaines -->
+            <div class="edit-centre-form-section">
+                <h2>Modifier les Ressources Humaines</h2>
+                <input type="text" id="resource-filter" oninput="filterOptions('resource-filter', 'resources-container')" placeholder="Rechercher une ressource...">
+                <ul id="resources-container">
+                    {{ form.resources }}
+                </ul>
+            </div>
+
+            <!-- Machines -->
+            <div class="edit-centre-form-section">
+                <h2>Modifier les Machines</h2>
+                <input type="text" id="machine-filter" oninput="filterOptions('machine-filter', 'machines-container')" placeholder="Rechercher une machine...">
+                <ul id="machines-container">
+                    {{ machine_form.machines }}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bouton unique -->
+        <div class="form-footer">
+            <button class="edit-centre-button" type="submit">Sauvegarder</button>
+        </div>
+    </form>
+
+</div>
+
+
+<script>
+    function filterOptions(inputId, containerId) {
+        const input = document.getElementById(inputId);
+        const filter = input.value.toLowerCase();
+        const container = document.getElementById(containerId);
+        const listItems = container.getElementsByTagName('li'); 
+
+        for (let i = 0; i < listItems.length; i++) {
+            const label = listItems[i].getElementsByTagName('label')[0];
+            if (label) {
+                const text = label.innerText || label.textContent;
+                if (text.toLowerCase().includes(filter)) {
+                    listItems[i].style.display = "block"; 
+                } else {
+                    listItems[i].style.display = "none"; 
+                }
+            }
+        }
+    }
+
+</script>
+
+{% endblock %}

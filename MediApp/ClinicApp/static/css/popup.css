@@ -1,0 +1,171 @@
+/* Overlay */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
+    z-index: 1000;
+}
+
+/* Contenu de la pop-up */
+.popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 20px;
+    width: 80%;
+    max-width: 80%;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Bouton de fermeture */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Bouton "Ajouter créneau" */
+.add-schedule-btn {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #007bff;
+    margin-bottom: 20px; /* Pour un peu d'espace entre le bouton et la liste */
+    padding: 10px 15px; /* Un peu de padding pour rendre le bouton plus visible */
+}
+
+    .add-schedule-btn:hover {
+        color: #0056b3;
+    }
+
+/* Liste des créneaux horaires */
+.schedule-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    margin-bottom: 10px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+    .schedule-item span {
+        font-size: 0.9rem;
+        color: #333;
+    }
+
+    .schedule-item i {
+        margin-right: 5px;
+    }
+
+    .schedule-item button
+    {
+        background: none;
+        border: none;
+        font-size: 1rem;
+        cursor: pointer;
+        color: #007bff;
+        margin-left: 10px;
+    }
+
+        .schedule-item button:hover {
+            color: #0056b3;
+        }
+
+/* Surcouche entière */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Contenu de la surcouche */
+.overlay-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Bouton de fermeture */
+.overlay-close-btn { 
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    float: right;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+/* Champs du formulaire */
+.form-group {
+    margin-bottom: 15px;
+}
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+
+.submit-btn {
+    background: #007bff;
+    border: none;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+    .submit-btn:hover {
+        background: #0056b3;
+    }
+
+/* Masquer la surcouche */
+.hidden {
+    display: none;
+}

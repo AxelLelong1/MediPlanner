@@ -1,0 +1,70 @@
+{% extends 'patients/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/admin/edit_machine_pref.css' %}">
+<h1>Modifier les préférences de la machine "{{ machine.name }}"</h1>
+<h2>Centre : {{ centre.name }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <label for="champs_x">Taille de champs :</label>
+    <div>
+        <input type="number" id="champs_x" name="champs_x" value="{{ machine.champs.item1 }}" placeholder="X">
+        <span>x</span>
+        <input type="number" id="champs_y" name="champs_y" value="{{ machine.champs.item2 }}" placeholder="Y">
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Localisation</th>
+                <th>Affinité</th>
+                <th>Priorité</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for localization, preferences in machine.localizations.items %}
+            <tr>
+                <td>{{ localization }}</td>
+                <td>
+                    <select name="{{ localization }}_item1" class="colored-select">
+                        <option value="0" {% if preferences.item1 == 0 %}selected{% endif %}>Priorité</option>
+                        <option value="1" {% if preferences.item1 == 1 %}selected{% endif %}>Possible</option>
+                        <option value="2" {% if preferences.item1 == 2 %}selected{% endif %}>À éviter</option>
+                        <option value="3" {% if preferences.item1 == 3 %}selected{% endif %}>NON</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="checkbox" name="{{ localization }}_item2" {% if preferences.item2 %}checked{% endif %}>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit">Enregistrer</button>
+    <a href="{% url 'list_centres' %}" class="cancel-link">Annuler</a>
+</form>
+
+<script>
+    document.querySelectorAll('.colored-select').forEach(select => {
+        // Function to update the background color
+        const updateSelectColor = (selectElement) => {
+            const selectedOption = selectElement.options[selectElement.selectedIndex];
+            const computedStyle = window.getComputedStyle(selectedOption); // get the style needed
+            selectElement.style.backgroundColor = computedStyle.backgroundColor;
+        };
+
+        // Initialize colors on page load
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll('.colored-select').forEach(select => {
+                updateSelectColor(select);
+            });
+        });
+
+        // Update color whenever the selection changes
+        select.addEventListener('change', () => {
+            updateSelectColor(select);
+        });
+    });
+</script>
+{% endblock %}

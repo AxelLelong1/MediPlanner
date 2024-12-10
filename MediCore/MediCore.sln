@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediCore", "MediCore\MediCore.csproj", "{841A0170-CBDC-44B4-B08E-918E16D1DED2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediData", "MediData\MediData.csproj", "{EAF14838-7210-440F-905E-B12C0FD220A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediPlanner", "MediPlanner\MediPlanner.csproj", "{9D619C73-2AD0-48D8-BE3E-985AD7E4466B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{841A0170-CBDC-44B4-B08E-918E16D1DED2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{841A0170-CBDC-44B4-B08E-918E16D1DED2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{841A0170-CBDC-44B4-B08E-918E16D1DED2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{841A0170-CBDC-44B4-B08E-918E16D1DED2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAF14838-7210-440F-905E-B12C0FD220A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAF14838-7210-440F-905E-B12C0FD220A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAF14838-7210-440F-905E-B12C0FD220A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAF14838-7210-440F-905E-B12C0FD220A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D619C73-2AD0-48D8-BE3E-985AD7E4466B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D619C73-2AD0-48D8-BE3E-985AD7E4466B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D619C73-2AD0-48D8-BE3E-985AD7E4466B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D619C73-2AD0-48D8-BE3E-985AD7E4466B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {02FB9FFC-20AD-4E0A-B7E3-7F4F28E765AE}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <Name>ClinicApp</Name>
+    <RootNamespace>ClinicApp</RootNamespace>
+    <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
+    <TestFramework>Pytest</TestFramework>
+    <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>6b2aaee9-5091-499f-ac46-1003aa7f3538</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <ProjectTypeGuids>{5F0BE9CA-D677-4A4D-8806-6076C0FAAD37};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <StartupFile>manage.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <WebBrowserUrl>http://localhost</WebBrowserUrl>
+    <LaunchProvider>Django launcher</LaunchProvider>
+    <DjangoSettingsModule>ClinicApp.settings</DjangoSettingsModule>
+    <OutputPath>.</OutputPath>
+    <SuppressCollectPythonCloudServiceFiles>true</SuppressCollectPythonCloudServiceFiles>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="patients\helper\cache.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="patients\forms.py" />
+    <Compile Include="patients\helper\eventClass.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="patients\helper\fetch.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="patients\helper\calculus.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="patients\helper\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="patients\models.py" />
+    <Compile Include="patients\tests.py" />
+    <Compile Include="patients\urls.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="patients\views.py" />
+    <Compile Include="patients\__init__.py" />
+    <Compile Include="patients\migrations\__init__.py" />
+    <Compile Include="manage.py" />
+    <Compile Include="ClinicApp\__init__.py" />
+    <Compile Include="ClinicApp\settings.py" />
+    <Compile Include="ClinicApp\urls.py" />
+    <Compile Include="ClinicApp\wsgi.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="patients\" />
+    <Folder Include="patients\helper\" />
+    <Folder Include="patients\migrations\" />
+    <Folder Include="static\" />
+    <Folder Include="static\css\admin\" />
+    <Folder Include="static\images\" />
+    <Folder Include="static\js\" />
+    <Folder Include="static\js\view_schedule\" />
+    <Folder Include="static\patients\" />
+    <Folder Include="static\patients\content\" />
+    <Folder Include="static\patients\fonts\" />
+    <Folder Include="static\css\" />
+    <Folder Include="static\patients\scripts\" />
+    <Folder Include="templates\" />
+    <Folder Include="templates\admin\" />
+    <Folder Include="templates\patients\" />
+    <Folder Include="ClinicApp\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="static\css\addpopup.css" />
+    <Content Include="static\css\admin\create_centre.css" />
+    <Content Include="static\css\admin\edit_centre.css" />
+    <Content Include="static\css\admin\edit_machine_pref.css" />
+    <Content Include="static\js\view_schedule\CalendarEventHandler.js" />
+    <Content Include="static\js\view_schedule\Display.js" />
+    <Content Include="static\js\view_schedule\EventListeners.js" />
+    <Content Include="static\js\view_schedule\Fetch.js" />
+    <Content Include="static\js\view_schedule\Save.js" />
+    <Content Include="static\js\view_schedule\Toggles.js" />
+    <Content Include="static\js\view_schedule\Triggers.js" />
+    <Content Include="templates\admin\edit_machine_pref.html" />
+    <Content Include="static\css\admin\liste_centres.css" />
+    <Content Include="static\css\popup.css" />
+    <Content Include="static\css\taskbar.css" />
+    <Content Include="static\css\choose.css" />
+    <Content Include="static\css\form.css" />
+    <Content Include="static\css\home.css" />
+    <Content Include="static\css\schedule.css">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="static\css\schedule_pat_form.css" />
+    <Content Include="static\css\base.css" />
+    <Content Include="templates\admin\create_centre.html" />
+    <Content Include="templates\admin\edit_centre.html" />
+    <Content Include="templates\admin\list_centres.html" />
+    <Content Include="templates\patients\choose_machine.html" />
+    <Content Include="templates\patients\feedback.html" />
+    <Content Include="templates\patients\add_patient.html" />
+    <Content Include="templates\patients\base.html" />
+    <Content Include="templates\patients\home.html" />
+    <Content Include="templates\patients\view_schedule.html" />
+    <Content Include="requirements.txt" />
+    <Content Include="db.sqlite3" />
+    <Content Include="static\patients\content\bootstrap.css" />
+    <Content Include="static\patients\content\bootstrap.min.css" />
+    <Content Include="static\patients\content\site.css" />
+    <Content Include="static\patients\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="static\patients\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="static\patients\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="static\patients\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="static\patients\scripts\bootstrap.js" />
+    <Content Include="static\patients\scripts\bootstrap.min.js" />
+    <Content Include="static\patients\scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="static\patients\scripts\jquery-1.10.2.js" />
+    <Content Include="static\patients\scripts\jquery-1.10.2.min.js" />
+    <Content Include="static\patients\scripts\jquery-1.10.2.min.map" />
+    <Content Include="static\patients\scripts\jquery.validate-vsdoc.js" />
+    <Content Include="static\patients\scripts\jquery.validate.js" />
+    <Content Include="static\patients\scripts\jquery.validate.min.js" />
+    <Content Include="static\patients\scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="static\patients\scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="static\patients\scripts\modernizr-2.6.2.js" />
+    <Content Include="static\patients\scripts\respond.js" />
+    <Content Include="static\patients\scripts\respond.min.js" />
+    <Content Include="static\patients\scripts\_references.js" />
+    <Content Include="TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="readme.html">
+      <SubType>WebBrowser</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env\">
+      <Id>env</Id>
+      <Version>0.0</Version>
+      <Description>env (Python 3.12 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Django.targets" />
+  <!-- Specify pre- and post-build commands in the BeforeBuild and 
+       AfterBuild targets below. -->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <AutoAssignPort>True</AutoAssignPort>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

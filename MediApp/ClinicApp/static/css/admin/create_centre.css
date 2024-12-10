@@ -1,0 +1,51 @@
+/* Style général pour la page de création de centre */
+.create-centre-container {
+    max-width: 600px; /* Limite la largeur du formulaire */
+    margin: 0 auto; /* Centre le conteneur */
+    padding: 20px; /* Ajoute de l'espacement interne */
+    background-color: #f7f9fb; /* Fond doux */
+    border-radius: 10px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
+}
+
+/* Titre de la page */
+.create-centre-title {
+    font-size: 2rem; /* Taille du titre */
+    color: #2c3e50; /* Couleur du titre */
+    margin-bottom: 20px; /* Espacement en bas */
+    text-align: center; /* Centre le titre */
+    font-family: 'Roboto', sans-serif; /* Police */
+}
+
+/* Style du formulaire */
+.create-centre-form {
+    display: flex; /* Utilise flexbox */
+    flex-direction: column; /* Colonne */
+}
+
+    /* Style des champs du formulaire */
+    .create-centre-form input,
+    .create-centre-form select {
+        padding: 10px; /* Espacement interne */
+        margin-bottom: 15px; /* Espacement entre les champs */
+        border: 1px solid #ddd; /* Bordure grise */
+        border-radius: 5px; /* Coins arrondis */
+        font-size: 1rem; /* Taille de police */
+    }
+
+/* Style du bouton de soumission */
+.create-centre-button {
+    background-color: #3498db; /* Couleur de fond */
+    color: #fff; /* Couleur du texte */
+    padding: 10px 15px; /* Espacement interne */
+    border: none; /* Pas de bordure */
+    border-radius: 5px; /* Coins arrondis */
+    cursor: pointer; /* Curseur pointer */
+    font-size: 1rem; /* Taille de police */
+    transition: background-color 0.3s ease; /* Transition douce */
+}
+
+    /* Effet de survol pour le bouton */
+    .create-centre-button:hover {
+        background-color: #2980b9; /* Couleur plus foncée au survol */
+    }

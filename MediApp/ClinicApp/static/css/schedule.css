@@ -1,0 +1,171 @@
+/* Conteneur pour le titre et le formulaire de sélection */
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin-top: 0;
+}
+
+th {
+    background-color: #FF6F30;
+    color: white;
+    font-weight: bold;
+}
+
+td {
+    font-size: 14px;
+}
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border: 1px solid #ccc;
+        vertical-align: top; /* Alignement en haut */
+    }
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.fc-event-main {
+    color: #37474f !important; /* Texte plus foncé */
+}
+
+.tooltip {
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 8px;
+    border-radius: 5px;
+    display: none;
+    z-index: 10;
+    max-width: 200px;
+    font-size: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    white-space: normal; /* Permet au texte de se couper sur plusieurs lignes */
+    max-height: 100px; /* Limite la hauteur maximale */
+    overflow-y: auto; /* Ajoute une barre de défilement si nécessaire */
+}
+
+/* Conteneur pour le select et la flèche */
+.select-container {
+    position: relative;
+    width: 160px; /* La même largeur que le select */
+}
+
+/* Style pour le sélecteur de durée */
+#slotDurationSelector {
+    background-color: #f4f4f4; /* Couleur de fond douce */
+    border: 1px solid #ccc; /* Bordure légère */
+    color: #37474f; /* Couleur du texte sombre pour une bonne lisibilité */
+    font-size: 14px; /* Taille de police lisible */
+    padding: 8px 12px; /* Espace autour du texte */
+    border-radius: 5px; /* Coins arrondis */
+    appearance: none; /* Enlever les styles par défaut de certains navigateurs */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%; /* Utilise toute la largeur du conteneur */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Effet de transition au survol */
+}
+
+/* Flèche personnalisée */
+.select-container::after {
+    content: '\25BC'; /* Caractère Unicode pour une flèche vers le bas */
+    font-size: 12px;
+    color: #37474f;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none; /* Empêche d'interagir avec la flèche */
+}
+
+/* Style lorsque le sélecteur est survolé */
+#slotDurationSelector:hover {
+    background-color: #e8f5e9; /* Légère couleur de fond plus claire */
+    border-color: #388e3c; /* Bordure verte lors du survol */
+}
+
+/* Style lorsque le sélecteur est sélectionné */
+#slotDurationSelector:focus {
+    border-color: #4CAF50; /* Bordure verte lors du focus */
+    outline: none; /* Enlever la bordure par défaut de focus */
+}
+
+/* Style pour les options du sélecteur */
+#slotDurationSelector option {
+    background-color: #fff; /* Fond blanc pour les options */
+    color: #37474f; /* Texte sombre */
+    padding: 5px; /* Espacement interne */
+    font-size: 14px; /* Taille de la police */
+}
+
+    /* Option sélectionnée */
+    #slotDurationSelector option:checked {
+        background-color: #4CAF50; /* Fond vert pour l'option sélectionnée */
+        color: white; /* Texte blanc */
+    }
+
+    /* Ajouter un petit effet visuel au survol des options */
+    #slotDurationSelector option:hover {
+        background-color: #c8e6c9; /* Fond vert clair au survol */
+    }
+
+/* Styles pour la flèche du sélecteur */
+#slotDurationSelector::-ms-expand {
+    display: none; /* Cacher la flèche par défaut sur IE */
+}
+
+#calendar {
+    transition: transform 0.3s ease;
+}
+
+/* Style pour les événements du calendrier */
+.fc-event-main {
+    position: relative;
+}
+
+    /* Option : Style pour l'événement lorsqu'il est survolé */
+    .fc-event-main:hover {
+        cursor: pointer;
+        opacity: 0.8;
+    }
+
+/* Status-based colors */
+.TREATMENT {
+    background-color: #cfd8dc; /* Couleur pour les créneaux pris */
+    color: #263238;
+}
+    .TREATMENT:hover {
+        background-color: #b0bec5; /* Un gris légèrement plus foncé au survol */
+    }
+
+.FREE {
+    background-color: #e8f5e9; /* Couleur plus claire pour les créneaux libres */
+    color: #388e3c;
+    border: 1px solid #4CAF50 !important;
+}
+    .FREE:hover {
+        background-color: #c8e6c9; /* Un gris plus foncé pour les créneaux libres au survol */
+    }
+
+.MAINTENANCE {
+    background-color: #ffebee; /* Couleur plus claire pour les créneaux libres */
+    color: #d32f2f;
+    border: 1px solid #FF0000 !important;
+}
+
+    .MAINTENANCE:hover {
+        background-color: #ef9a9a; /* Un gris plus foncé pour les créneaux libres au survol */
+    }
+
+.BOOKED {
+    background-color: #fff8e1; /* Teinte jaune clair pour les créneaux réservés */
+    color: #f57f17; /* Couleur de texte foncée pour contraster */
+}
+
+    .BOOKED:hover {
+        background-color: #ffecb3; /* Jaune un peu plus foncé au survol */
+    }

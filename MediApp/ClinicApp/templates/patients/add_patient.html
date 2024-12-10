@@ -1,0 +1,58 @@
+{% extends 'patients/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}">
+
+<h2 class="form-title">Add a new Patient</h2>
+<form method="post" class="formClass">
+    {% csrf_token %}
+    <div>
+        <div class="form-row">
+            <label for="form.nom">Nom</label>
+            {{ form.nom }}
+            <label for="form.prenom">Prenom</label>
+            {{ form.prenom }}
+        </div>
+
+        <div class="form-row">
+            <label for="id_start_date">Date:</label>
+            {{ form.start_date }}
+
+            <div class="form-time">
+                <input type="checkbox" id="require_hour" name="require_hour" onclick="toggleTimeField()">
+                <label for="require_hour">Heure requise</label>
+                <div style="display:none" id="time_field">
+                    <label for="id_start_hour">Time:</label>
+                    {{ form.start_hour }}
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label for="form.localization">Localisation</label>
+            {{ form.localization }}
+            <label for="id_tumor_size">Taille:</label>
+            {{ form.tumor_size_x }} <span>x</span> {{ form.tumor_size_y }}
+        </div><br>
+    </div>
+    <button type="submit" class="submit-btn">Submit</button>
+</form>
+
+<script>
+    function toggleTimeField() {
+        const checkbox = document.getElementById('require_hour');
+        const timeField = document.getElementById('time_field');
+        const timeInput = document.getElementById('id_start_hour');
+
+        if (checkbox.checked) {
+            timeField.style.display = 'block';
+            timeInput.required = true;  // Activer le champ heure
+        } else {
+            timeField.style.display = 'none';
+            timeInput.value = '';  // Effacer la valeur du champ heure
+            timeInput.required = false;
+        }
+    }
+</script>
+
+{% endblock %}

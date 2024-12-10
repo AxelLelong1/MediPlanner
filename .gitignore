@@ -1,0 +1,131 @@
+# Logs
+*.log
+*.out
+*.err
+
+# Python-specific
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.swp
+*.swo
+
+# Django-specific
+*.sqlite3
+db.sqlite3
+/media/
+staticfiles/
+*.pot
+*.mo
+
+# Environment
+.env
+venv/
+venv.bak/
+env/
+.env.*
+
+# Node.js / Frontend-related
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Byte-compiled / optimized / DLL files
+*.py[cod]
+*$py.class
+
+# Editor & IDE-specific files
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Cache
+__pycache__/
+*.cache
+*.eggs
+*.egg-info
+.eggs/
+*.coverage
+*.cover
+.cache/
+coverage.*
+nosetests.xml
+*.cover
+.hypothesis/
+*.pytest_cache
+
+# Build-related files (Python & Node)
+dist/
+build/
+*.egg
+*.egg-info/
+
+# JavaScript-related
+package-lock.json
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Other temporary files
+*.bak
+*.tmp
+*~
+
+# C# / .NET-specific
+
+# Build Folders
+bin/
+obj/
+debug/
+release/
+
+# Visual Studio IDE-specific
+.vscode/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.tss
+*.sln.ide
+
+# Package Management
+packages/
+.nuget/
+project.lock.json
+project.fragment.lock.json
+
+# Publish Output
+*.publishsettings
+*.pubxml
+*.pubxml.user
+
+# Temporary files
+*.rsuser
+*.lock.json
+*.ide.*
+*.cproject
+*.launch
+*.tmp
+
+# Secret and sensitive files
+secrets.json
+appsettings.json
+appsettings.Development.json
+appsettings.*.json
+
+# ASP.NET User-secrets
+**/secrets.json
+
+# Dependency Cache
+.dockerignore
+Dockerfile
+.docker/
+docker-compose.override.yml

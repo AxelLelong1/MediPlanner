@@ -1,0 +1,23 @@
+<!-- feedback/feedback.html -->
+{% extends 'patients/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}">
+    <h2 class="form-title">Feedback</h2>
+    <form method="post" class="formClass">
+        {% csrf_token %}
+
+        <div class="form-row">
+            <label for="form.name">Nom</label>    
+                {{ form.name }}
+            <label for="form.email">Email</label>
+                {{ form.email }}
+        </div>
+
+        <div class="form-row">
+                {{ form.message }}
+        </div>
+
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,91 @@
+/* Conteneur principal des formulaires côte à côte */
+.edit-centre-forms-row {
+    display: flex; /* Active flexbox pour organiser les colonnes */
+    justify-content: space-evenly; /* Égalise les espaces entre colonnes */
+    gap: 30px; /* Espacement entre les colonnes */
+    max-width: 900px; /* Largeur totale maximale */
+    margin: 0 auto; /* Centre le conteneur horizontalement */
+    padding-top: 20px; /* Espacement au-dessus */
+}
+
+/* Sections individuelles des formulaires */
+.edit-centre-form-section {
+    flex: 1; /* Largeur égale pour chaque section */
+    max-width: 400px; /* Largeur maximale */
+    padding: 10px; /* Espacement interne */
+}
+
+    /* Style pour les champs de recherche */
+    .edit-centre-form-section input[type="text"] {
+        width: 100%; /* S'adapte à la largeur du conteneur */
+        padding: 10px; /* Espacement interne */
+        margin-bottom: 10px; /* Espace sous le champ de recherche */
+        border: 1px solid #ddd; /* Bordure grise */
+        border-radius: 5px; /* Coins arrondis */
+        font-size: 1rem; /* Taille de police */
+    }
+
+    /* Liste de choix */
+    .edit-centre-form-section ul {
+        list-style: none; /* Retire les puces */
+        padding: 0; /* Pas de padding */
+        margin: 0; /* Pas de marge */
+        border: 1px solid #ddd; /* Bordure autour de la liste */
+        border-radius: 5px; /* Coins arrondis */
+        max-height: 600px; /* Hauteur maximale avec défilement */
+        overflow-y: auto; /* Barre de défilement si nécessaire */
+    }
+
+    /* Style des éléments de la liste */
+    .edit-centre-form-section li {
+        display: flex; /* Flex pour aligner checkbox et label */
+        align-items: center; /* Centrer verticalement */
+        padding: 10px; /* Espacement interne */
+        border-bottom: 1px solid #eee; /* Ligne entre les éléments */
+        margin: 0; /* Pas de marge entre les éléments */
+        cursor: pointer; /* Indique que les éléments sont cliquables */
+    }
+
+        .edit-centre-form-section li:last-child {
+            border-bottom: none; /* Pas de bordure en bas pour le dernier élément */
+        }
+
+    /* Checkbox */
+    .edit-centre-form-section input[type="checkbox"] {
+        margin-right: 10px; /* Espace entre la checkbox et le texte */
+    }
+
+    /* Labels */
+    .edit-centre-form-section label {
+        font-size: 1rem; /* Taille standard */
+        color: #34495e; /* Couleur du texte */
+    }
+
+    /* Titre des sections */
+    .edit-centre-form-section h2 {
+        text-align: left; /* Alignement à gauche */
+        margin-bottom: 15px; /* Espacement avec le contenu */
+        color: #2c3e50; /* Couleur du titre */
+    }
+
+/* Pied de formulaire avec bouton centré */
+.form-footer {
+    margin-top: 20px; /* Espacement avec les formulaires */
+    text-align: center; /* Centre le bouton */
+}
+
+/* Bouton de sauvegarde */
+.edit-centre-button {
+    background-color: #3498db; /* Couleur de fond */
+    color: #fff; /* Couleur du texte */
+    padding: 10px 20px; /* Espacement interne */
+    border: none; /* Pas de bordure */
+    border-radius: 5px; /* Coins arrondis */
+    cursor: pointer; /* Curseur clic */
+    font-size: 1rem; /* Taille de police */
+    transition: background-color 0.3s ease; /* Transition douce */
+}
+
+    .edit-centre-button:hover {
+        background-color: #2980b9; /* Couleur au survol */
+    }
