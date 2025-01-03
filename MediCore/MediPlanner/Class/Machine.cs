@@ -10,6 +10,9 @@ using MediPlanner.Enums;
 
 namespace MediPlanner.Class
 {
+    /// <summary>
+    /// Machine handler.. Name, maximum treatment sizes, localizations affinities
+    /// </summary>
     public class Machine
     {
         public string Id { get; set; }

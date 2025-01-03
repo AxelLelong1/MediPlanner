@@ -55,10 +55,6 @@
     </form>
 </div>
 
-<!-- JSON pour les données du planning -->
-{{ schedule_data|json_script:"schedule-data" }}
-{{ events|json_script:"events_data" }}
-
 <!-- Conteneur principal pour la vue avec sidebar et planning -->
 <div class="main-container">
     <!-- Panneau pour afficher la liste des patients -->
@@ -89,11 +85,18 @@
                     {{ form.prenom }}
                 </div>
 
+                <div class="form-group-verti">
+                    <label for="form.urgence">Urgence</label>
+                    {{ form.urgence }}
+                </div>
+
                 <div class="form-group">
                     <label for="id_start_date">Date</label>
                     {{ form.start_date }}
-                    <label for="require_hour">Heure requise</label>
-                    <input type="checkbox" id="require_hour" name="require_hour" onclick="toggleTimeField()">
+                    <div class="form-group-verti">
+                        <label for="require_hour">Heure requise</label>
+                        <input type="checkbox" id="require_hour" name="require_hour" onclick="toggleTimeField()">
+                    </div>
                     <div style="display:none" id="time_field">
                         <label for="id_start_hour">Heure</label>
                         {{ form.start_hour }}
@@ -109,6 +112,16 @@
                     <label for="id_tumor_size">Taille</label>
                     {{ form.tumor_size_x }}
                     {{ form.tumor_size_y }}
+                </div>
+
+                <div class="form-group">
+                    <label for="form.frac_per_week">Fractions par semaine</label>
+                    {{ form.frac_per_week }}
+                </div>
+
+                <div class="form-group">
+                    <label for="form.num_of_week">Nombre de semaines</label>
+                    {{ form.num_of_week }}
                 </div>
 
                 <button type="submit" class="submit-btn">Soumettre</button>
@@ -203,9 +216,13 @@
     </div>
 </div>
 
+<!-- JSON pour les données du planning -->
+{{ schedule_data|json_script:"schedule-data" }}
+{{ events|json_script:"events_data" }}
+
 <script>
 
-/// DECLENCHEUR -----------------------------------------------------------------------------------------------------------------------------------
+    /// DECLENCHEUR -----------------------------------------------------------------------------------------------------------------------------------
 
     document.addEventListener('DOMContentLoaded', function () {
         const centreSelect = document.getElementById('centre');
@@ -214,7 +231,7 @@
         }
     });
 
-/// EVENT LISTENERS -----------------------------------------------------------------------------------------------------------------------------------
+    /// EVENT LISTENERS -----------------------------------------------------------------------------------------------------------------------------------
 
     let calendar;
     // Récupérer les événements modifiés
@@ -311,8 +328,8 @@
                     .then(data => {
                         const machines = data.machines;
 
-                        // Réinitialisation et ajout des nouvelles options
-                        machineSelect.innerHTML = '<option value="" hidden>Sélectionner une machine</option>';
+                            // Réinitialisation et ajout des nouvelles options
+                            machineSelect.innerHTML = '<option value="" hidden>Sélectionner une machine</option>';
 
                         if (machines.length > 0) {
                             machines.forEach(machine => {
@@ -349,15 +366,14 @@
         setupCentreMachineDependency('addPopupCentre', 'add-popup-machine'); // Pour la surcouche d'ajout
     });
 
-/// DISPLAY -----------------------------------------------------------------------------------------------------------------------------------
+    /// DISPLAY -----------------------------------------------------------------------------------------------------------------------------------
 
     function displayPatients(patients) {
         const popupconent = document.getElementById('popupPatient')
         const patientList = document.getElementById('patientList');
         patientList.innerHTML = ''; // Vide la liste avant d'ajouter les nouveaux patients
 
-        if (document.getElementsByClassName('add-schedule-btn').length == 0)
-        {
+        if (document.getElementsByClassName('add-schedule-btn').length == 0) {
             const button = document.createElement('div')
             button.innerHTML = `
                 <!-- Bouton d'ajout de créneau -->
@@ -389,7 +405,7 @@
         });
     }
 
-/// ADD / CHANGE / REMOVE -----------------------------------------------------------------------------------------------------------------------------------
+    /// ADD / CHANGE / REMOVE -----------------------------------------------------------------------------------------------------------------------------------
 
     function removePatient(patientName) {
         const confirmation = confirm(`Êtes-vous sûr de vouloir supprimer le patient : ${patientName} ?`);
@@ -468,7 +484,7 @@
         closeAddPopup();
     }
 
-/// TOGGLES -----------------------------------------------------------------------------------------------------------------------------------
+    /// TOGGLES -----------------------------------------------------------------------------------------------------------------------------------
 
     function toggleSidebar() {
         const sidebar = document.getElementById('patientSidebar');
@@ -651,7 +667,7 @@
         const urlParams = new URLSearchParams(window.location.search);
 
         // Extraire la valeur de "machine"
-        const machineValue = urlParams.get('machine'); 
+        const machineValue = urlParams.get('machine');
 
         fetch("{% url 'fetchEventsChanges' %}", {
             method: 'POST',

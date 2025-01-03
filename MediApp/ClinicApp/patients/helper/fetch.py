@@ -105,7 +105,7 @@ def fetch_schedule_from_api(selected_machine, week_start):
         return []
 
 # Récupère le planning pour un patient
-def fetch_patient_schedule_from_api(name, surname, selected_machine, selected_center_id, start_date, start_hour, tumor_size_x, tumor_size_y, localization):
+def fetch_patient_schedule_from_api(name, surname, selected_machine, selected_center_id, start_date, start_hour, tumor_size_x, tumor_size_y, localization, frac, week):
     print("FETECHING")
     try:
         patient_params = {
@@ -117,7 +117,9 @@ def fetch_patient_schedule_from_api(name, surname, selected_machine, selected_ce
             'tumor_size_y': tumor_size_y,
             'localization': localization,
             'name': name,
-            'surname': surname
+            'surname': surname,
+            'frac': frac,
+            'week': week
         }
         add_patient_request = requests.get(apiurl + "/Planning/AddPatient", params=patient_params)
         if add_patient_request.ok:

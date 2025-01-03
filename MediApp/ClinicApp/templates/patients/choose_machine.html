@@ -79,6 +79,15 @@
         // Redirige vers la nouvelle URL
         window.location.href = newUrl;
     });
+
+    const centreSelect = document.getElementById('centre-select');
+
+    // Vérifie si le paramètre 'centre' est absent dans l'URL
+    const currentUrlParams = new URLSearchParams(window.location.search);
+    if (!currentUrlParams.has('centre')) {
+        // Si 'centre' n'existe pas, simule un événement 'change' pour l'appliquer
+        centreSelect.dispatchEvent(new Event('change'));
+    }
 </script>
 
 {% endblock %}

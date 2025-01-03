@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MediPlanner.Class
 {
+    /// <summary>
+    /// Ressources handler
+    /// </summary>
     public class Ressources
     {
         public string Id { get; set; }

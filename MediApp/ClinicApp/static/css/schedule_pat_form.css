@@ -46,6 +46,35 @@
     width: 100%; /* Le formulaire occupe toute la largeur */
 }
 
+.form-group-verti
+{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+    .form-group-verti label {
+        font-weight: bold;
+        display: block; /* Assure que le label occupe une ligne séparée */
+        margin-bottom: 0.5rem;
+        color: #333; /* Couleur des labels */
+    }
+
+    .form-group-verti input,
+    .form-group-verti select {
+        padding: 0.7rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        width: 100%; /* Champs de formulaire prennent toute la largeur */
+        font-size: 1rem; /* Augmenter la taille du texte pour une meilleure lisibilité */
+        transition: border-color 0.3s;
+    }
+
+        .form-group-verti input:focus,
+        .form-group-verti select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
 /* Section des formulaires dans la sidebar */
 .form-group {
     display: block; /* Chaque champ prend toute la largeur disponible */

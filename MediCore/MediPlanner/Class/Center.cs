@@ -13,6 +13,9 @@ using MediPlanner.Queries;
 
 namespace MediPlanner.Class
 {
+    /// <summary>
+    /// Concerne les sites
+    /// </summary>
     public class Center
     {
         public int Id { get; set; }
@@ -30,6 +33,9 @@ namespace MediPlanner.Class
             Localisations = new();
         }
 
+        /// <summary>
+        /// Class par défaut (StCloud 2024)
+        /// </summary>
         public Center()
         {
             Machines = new List<Machine>();
@@ -187,7 +193,7 @@ namespace MediPlanner.Class
 
             return final;
         }
-
+        /*
         public Machine ChooseMachine(VarianContext context, LocalizationType localization, DateTime Monday, int semaines)
         {
             List<Class.Machine> machines = GetMachinesByPreference(localization);
@@ -205,7 +211,7 @@ namespace MediPlanner.Class
             Console.Write("Sur quelle machine positionner le patient ?");
             return GetMachineByName(Console.ReadLine()); // TODO BABY PROOF THAT READLINE
         }
-         
+         */
 
 
         /* ------------------------------------- DISPLAY ------------------------------------- */

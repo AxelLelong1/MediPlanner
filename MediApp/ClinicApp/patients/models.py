@@ -34,6 +34,9 @@ class Patient(models.Model):
     tumor_size_x = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)  # Taille X de la tumeur
     tumor_size_y = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)  # Taille Y de la tumeur
     localization = models.CharField(max_length=100, choices=locations, default='SeinLocal')  # Type de traitement (exam, autre)
+    urgence = models.BooleanField(default=False)  # Champ booléen
+    frac_per_week = models.IntegerField(default=1)  # Champ entier
+    num_of_week = models.IntegerField(default=1)  # Champ entier
     
     def __str__(self):
         return self.nom

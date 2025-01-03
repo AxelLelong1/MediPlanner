@@ -11,6 +11,9 @@ using MediPlanner.Class;
 
 namespace MediPlanner.Queries
 {
+    /// <summary>
+    /// Queries request for the admin controller
+    /// </summary>
     public class AdminQueries
     {
         static public List<Class.Machine> GetMachines(VarianContext context)

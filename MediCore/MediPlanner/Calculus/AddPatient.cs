@@ -8,17 +8,30 @@ using MediPlanner.QueryResultClass;
 
 namespace MediPlanner.Calculus
 {
+    /// <summary>
+    /// Way to calculate and add patients in the schedule
+    /// </summary>
     public class AddPatient
     {
+        /// <summary>
+        /// First iteration, added the patient at the earliest possible time
+        /// </summary>
+        /// <param name="activites">schedules already here (no overlap)</param>
+        /// <param name="fractions">number of treatment per week</param>
+        /// <param name="weeks">number of weeks</param>
+        /// <param name="treatmentTime">Time of the treatment</param>
+        /// <param name="pref">Timepreferences (useless here)</param>
         static public void AddPatientAtEarliest(List<List<ScheduleQueryResult>> activites, int fractions, int weeks, TimeSpan treatmentTime, TimeSpan? pref = null)
         {
             TimeSpan? preferredStartTime = pref;
             ScheduleQueryResult slotAtPreferredTime;
             ScheduleQueryResult booked = null;
 
+            // for each week
             for (int i = 0; i < weeks; i++)
             {
                 int f = fractions;
+                // for each day of the week (skipping sundays)
                 foreach (var day in activites.Skip(i * 7).Take(6).ToList())
                 {
                     if (f <= 0)
@@ -81,6 +94,16 @@ namespace MediPlanner.Calculus
             }
         }
 
+        /// <summary>
+        /// V2, meme principe
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="surname"></param>
+        /// <param name="activites"></param>
+        /// <param name="fractions"></param>
+        /// <param name="weeks"></param>
+        /// <param name="treatmentTime"></param>
+        /// <param name="pref"></param>
         static public void AddPatientStabilized(string name, string surname, List<List<ScheduleQueryResult>> activites, int fractions, int weeks, TimeSpan treatmentTime, TimeSpan pref)
         {
             TimeSpan preferredStartTime = pref;

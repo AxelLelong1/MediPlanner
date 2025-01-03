@@ -92,7 +92,8 @@ namespace MediCore.Controllers
         [FromQuery] string localization,
         [FromQuery] int sizeX,
         [FromQuery] int sizeY,
-        [FromQuery] DateTime start_date)
+        [FromQuery] DateTime start_date,
+        [FromQuery] int weeks)
         {
             logger.Log($"Getting preferred machine for {localization} with tumor size ({sizeX}, {sizeY}) and date {start_date}",
                         MediCore.Logger.LogLevel.Info);
@@ -119,7 +120,7 @@ namespace MediCore.Controllers
                 loca,
                 tumorSize,
                 start_date,
-                1); // TODO: replace by weeks
+                weeks); // TODO: replace by weeks
 
                 // Récupérer la machine préférée
                 var preferredMachine = c.Machines
@@ -214,6 +215,8 @@ namespace MediCore.Controllers
             [FromQuery] int sizeX,
             [FromQuery] int sizeY,
             [FromQuery] DateTime start_date,
+            [FromQuery] int frac,
+            [FromQuery] int week,
             [FromQuery] TimeSpan? start_hour = null) // rendre le paramètre nullable avec une valeur par défaut
         {
             // Logger l'heure ou mentionner que l'heure est null
@@ -222,13 +225,13 @@ namespace MediCore.Controllers
 
             using var context = new VarianContext();
 
-            var activities = MachineScheduleQuery.GetScheduleActivity(context, machineName, start_date, 1, patientListService.patients); // TODO : remplacer le nombre de semaines
+            var activities = MachineScheduleQuery.GetScheduleActivity(context, machineName, start_date, week, patientListService.patients);
 
             // Si une heure est fournie, l'utiliser ; sinon, utiliser une valeur par défaut ou ignorer
             if (!start_hour.HasValue)
                 start_hour = new TimeSpan(0, 0, 0); // début de journée par défaut
 
-            AddPatient.AddPatientStabilized(name, surname, activities, 4, 1, new TimeSpan(0, 15, 0), start_hour.Value); // TODO: ajouter fraction/semaines (4, 1) == 4 franction / semaines pendant 1 semaine
+            AddPatient.AddPatientStabilized(name, surname, activities, frac, week, new TimeSpan(0, 15, 0), start_hour.Value); // TIMESPAN (15) == TEMPS DE TRAIEMETMENT DE 15 MINUTES PAR DEFAUT CAR PAS HANDLE YET (TODO)
 
             // Get the booked activities and add need informations
             var pat_schedule = activities.SelectMany(x => x).Where(y => y.Name == name + " " + surname && y.Note.Equals("BOOKED")).ToList();

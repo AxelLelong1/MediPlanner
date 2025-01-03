@@ -2,6 +2,9 @@
 
 namespace MediPlanner.Class
 {
+    /// <summary>
+    /// Event handler. Stocke les dates de début et de fin ainsi que d'autres stats nécessaire au process de données
+    /// </summary>
     public class Event
     {
         public string Title { get; set; }
@@ -25,6 +28,9 @@ namespace MediPlanner.Class
         }
     }
 
+    /// <summary>
+    /// Propriétés supplémentaires
+    /// </summary>
     public class ExtendedProps
     {
         public string Source { get; set; }

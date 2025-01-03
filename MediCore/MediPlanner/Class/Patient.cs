@@ -2,6 +2,10 @@
 
 namespace MediPlanner.Class
 {
+    /// <summary>
+    /// Patient handler
+    /// Contains name and list of event conerning itself
+    /// </summary>
     public class Patient
     {
         public string FirstName { get; set; }

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from tkinter import W
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import JsonResponse
@@ -37,6 +38,9 @@ def add_patient(request):
 
         if form.is_valid():
             # Extraire les données du formulaire
+            urgence = form.cleaned_data['urgence']
+            frac = form.cleaned_data['frac_per_week']
+            week = form.cleaned_data['num_of_week']
             nom = form.cleaned_data['nom']
             prenom = form.cleaned_data['prenom']
             start_date = form.cleaned_data['start_date']
@@ -54,7 +58,10 @@ def add_patient(request):
                 'sizeX': sizeX,
                 'sizeY': sizeY,
                 'name': nom,
-                'surname': prenom
+                'surname': prenom,
+                'urgence': urgence,
+                'frac_per_week': frac,
+                'num_of_week': week
             }
 
             return redirect(f"{reverse('choose_machine')}?{requests.compat.urlencode(query_params)}")
@@ -67,18 +74,26 @@ def add_patient(request):
 # Vue pour choisir une machine
 def choose_machine(request):
     # Récupérer les données passées via les paramètres GET
+    urgence = request.GET.get('urgence')
     localization = request.GET.get('localization')
+    
+    frac = request.GET.get('frac_per_week')
+    week = request.GET.get('num_of_week')
+
     start_date = request.GET.get('start_date')
     start_hour = request.GET.get('start_hour')
+    
     sizeX = request.GET.get('sizeX')
     sizeY = request.GET.get('sizeY')
+    
     name = request.GET.get('name')
     surname = request.GET.get('surname')
     current_centre = request.GET.get('centre')
 
     start_hour = start_hour if start_hour != "None" else None
-
     centres = get_centres_from_api()
+
+    print(urgence, frac, week)
 
     if (current_centre != None):
         for c in centres:
@@ -88,11 +103,12 @@ def choose_machine(request):
         selected_centre = None
 
     params = {
-    'centerID': selected_centre.get('id') if selected_centre != None else None,
+    'centerID': selected_centre.get('id') if selected_centre != None else 0,
     'localization': localization,
     'start_date': (datetime.strptime(start_date, "%Y-%m-%d")).isoformat(),
     'sizeX': sizeX,
-    'sizeY': sizeY
+    'sizeY': sizeY,
+    'weeks': week
     }
 
 
@@ -107,7 +123,7 @@ def choose_machine(request):
             'machine': selected_machine,
         }
         print(selected_machine)
-        res = fetch_patient_schedule_from_api(name, surname, selected_machine, int(current_centre), start_date, start_hour, sizeX, sizeY, localization)
+        res = fetch_patient_schedule_from_api(name, surname, selected_machine, int(current_centre), start_date, start_hour, sizeX, sizeY, localization, frac, week)
 
         return redirect(f"{reverse('view_schedule')}?{requests.compat.urlencode(query_params)}")
 

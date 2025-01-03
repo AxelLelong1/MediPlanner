@@ -8,7 +8,7 @@ from .models import Patient, Feedback
 class PatientForm(forms.ModelForm):
     class Meta:
         model = Patient
-        fields = ['nom', 'prenom', 'start_date', 'start_hour', 'tumor_size_x', 'tumor_size_y', 'localization']
+        fields = ['nom', 'prenom', 'start_date', 'start_hour', 'tumor_size_x', 'tumor_size_y', 'localization', 'urgence', 'frac_per_week', 'num_of_week']
         widgets = {
             'nom': forms.TextInput(),
             'prenom': forms.TextInput(),
@@ -17,6 +17,9 @@ class PatientForm(forms.ModelForm):
             'localization': forms.Select(),
             'tumor_size_x': forms.TextInput(attrs={'placeholder': 'Taille X en cm', 'size': '10'}),
             'tumor_size_y': forms.TextInput(attrs={'placeholder': 'Taille Y en cm', 'size': '10'}),
+            'urgence': forms.CheckboxInput(),
+            'frac_per_week': forms.NumberInput(attrs={'min': '1', 'placeholder': 'Fractions par semaine'}),
+            'num_of_week': forms.NumberInput(attrs={'min': '1', 'placeholder': 'Nombre de semaines'}),
         }
 
 class FeedbackForm(forms.ModelForm):

@@ -1,4 +1,5 @@
-﻿#region Dependencies
+﻿
+#region Dependencies
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ using MediData.Models;
 using Microsoft.EntityFrameworkCore.Internal;
 using System.IO;
 using Microsoft.Identity.Client;
+using Microsoft.IdentityModel.Tokens;
 
 #endregion
 
@@ -209,11 +211,50 @@ namespace MediPlanner
                 }
                 */
 
+                /*var test = await System.Threading.Tasks.Task.Run(() => context.Diagnosis
+                .Select(x => new { name = x.DiagnosisTableName, 
+                                   code = x.DiagnosisCode })
+                .ToList());*/
+
+                /*
+                
                 var test = await System.Threading.Tasks.Task.Run(() => context.PlanSetup
-                .Where(x => x.HstryDateTime.CompareTo(new DateTime(2024,09,01)) > 0)
-                .Select(x => x.Status)
+                .Select(x => new { Name = x.PlanSetupName })
                 .Distinct()
-                .OrderBy(x => x)
+                .Take(100).OrderBy(x => x.Name).ToList());
+
+
+
+                .Join(context.Rtplan,
+                x => x.PlanSetupSer,
+                rt => rt.PlanSetupSer,
+                (x, rt) => new { Plan = x, RT = rt })
+                .Join(context.TreatmentRecord,
+                x => x.RT.PlanUid,
+                treat => treat.PlanUid,
+                (x, treat) => new { x.Plan, x.RT, Treatment = treat})
+                .Join(context.Patient,
+                x => x.Treatment.PatientSer,
+                pat => pat.PatientSer,
+                (x, pat) => new { x.Plan, x.RT, x.Treatment, Pat = pat }).Take(100000).ToList()
+                */
+
+                var test = await System.Threading.Tasks.Task.Run(() => context.PlanSetup
+                .Where(x => x.PlanSetupName != string.Empty && x.PlanSetupName != null)
+                .Join(context.Rtplan,
+                x => x.PlanSetupSer,
+                rt => rt.PlanSetupSer,
+                (x, rt) => new { Plan = x, RT = rt })
+                .Join(context.TreatmentRecord,
+                x => x.RT.PlanUid,
+                treat => treat.PlanUid,
+                (x, treat) => new { x.Plan, x.RT, Treatment = treat })
+                .Join(context.Patient,
+                x => x.Treatment.PatientSer,
+                pat => pat.PatientSer,
+                (x, pat) => new { x.Plan, x.RT, x.Treatment, Pat = pat })
+                .Select(x => new { Plan = x.Plan.PlanSetupName, Pat = x.Pat.LastName })
+                .Distinct()
                 .ToList());
 
                 cts.Cancel(); // Stop the animation
@@ -221,9 +262,21 @@ namespace MediPlanner
 
                 foreach(var t in test)
                 {
-                    Console.WriteLine("{0}", t);
+                    Console.WriteLine("{0} - {1}", t.Plan, (t.Pat));
                 }
 
+                
+                Console.WriteLine("STATS");
+                Console.WriteLine("GOT {0} ENTRIES", test.Count);
+                Console.WriteLine("{0} Sein ENTRIES", test.Where(x => x.Plan.ToUpper().Contains("SEIN")).Count());
+
+                var loca = test.Select(x => x.Plan).Distinct().ToList();
+
+
+                foreach (var l in loca)
+                {
+                    Console.WriteLine("{0}", l);
+                }
 
                 //string MachineName = machine.GetMachineName(); // MACHINE'S NAME (SEE NOTE AND COPY/PASTE)
 
