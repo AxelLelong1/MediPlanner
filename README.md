@@ -2,6 +2,19 @@
 
 Ce projet combine une application **Django** (backend), une **API RESTful ASP.NET** (backend secondaire), et une interface utilisateur utilisant des technologies front-end comme **HTML/CSS/JavaScript**. Il vise à gérer les plannings de patients avec des fonctionnalités avancées.
 
+# Sommaire
+
+```plaintext
+MediPlanner/
+├── Prérequis/             
+└── Installation/
+    ├── Backend Django/
+    └── RESTFUL API/
+├── Structure du Projet
+├── Changer les targets réseaux
+└── Contribuer
+```
+
 ## **Prérequis**
 
 1. **Systèmes** :
@@ -86,6 +99,31 @@ projet/
 └── .gitignore          # Fichiers ignorés par Git
 ```
 
+---
+
+## **Changer les targets réseaux**
+
+### API RESTFUL
+
+Chercher `appsettings.json` dans MediCore, vous y trouverez ceci
+```json
+"AllowedHosts": "*",
+"Kestrel": {
+  "Endpoints": {
+    "Http": {
+      "Url": "http://localhost:5001"  // Changez l'URL ici !
+    }
+  }
+},
+```
+
+:warning: ATTENTION ! L'application Django doit pouvoir communiquer avec le serveur !
+Il faut donc lui indiquer la bonne adresse également dans `patients\helper\fetch.py` !
+
+### Django
+
+Si vous voulez lancer le serveur **de développement** sur une adresse spécifique `python manage.py runserver 0.0.0.0:0000` avec l'ip que vous souhaitez
+Si vous voulez changer l'adresse **de déploiement** à voir selon les méthodes employés que vous avez utilisé pour déployer l'application Django. 
 ---
 
 ## **Contribuer**
