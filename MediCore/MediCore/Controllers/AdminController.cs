@@ -34,8 +34,8 @@ namespace MediCore.Controllers
             this.centerService = centerService;
 
             // Preset StCloud : TODO REMOVE PRESET AND LEAVE EMPTY
-            if(centerService.Centers.Count == 0)
-                centerService.AddCenter(new Center());
+            //if(centerService.Centers.Count == 0)
+            //    centerService.AddCenter(new Center());
         }
 
 

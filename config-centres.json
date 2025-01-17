@@ -1,0 +1,981 @@
+[
+  {
+    "id": 0,
+    "name": "StCloud",
+    "machines": [
+      {
+        "id": "TRUEBEAM",
+        "name": "TRUEBEAM",
+        "machineType": 0,
+        "localizations": {
+          "SeinLocal": {
+            "item1": 0,
+            "item2": true
+          },
+          "SeinRegional": {
+            "item1": 2,
+            "item2": false
+          },
+          "SeinDIBH": {
+            "item1": 0,
+            "item2": true
+          },
+          "Hematologie": {
+            "item1": 1,
+            "item2": false
+          },
+          "Urologie": {
+            "item1": 2,
+            "item2": false
+          },
+          "Gynecologie": {
+            "item1": 2,
+            "item2": false
+          },
+          "Digestif": {
+            "item1": 1,
+            "item2": false
+          },
+          "Thorax": {
+            "item1": 1,
+            "item2": false
+          },
+          "Sarcome": {
+            "item1": 1,
+            "item2": false
+          },
+          "ORL": {
+            "item1": 1,
+            "item2": false
+          },
+          "Dermatologie": {
+            "item1": 1,
+            "item2": false
+          },
+          "SpiroPoumon": {
+            "item1": 1,
+            "item2": false
+          },
+          "Medulloblastomes": {
+            "item1": 2,
+            "item2": false
+          },
+          "Membres": {
+            "item1": 0,
+            "item2": false
+          },
+          "Palliatif": {
+            "item1": 3,
+            "item2": false
+          }
+        },
+        "champs": {
+          "item1": 40,
+          "item2": 40
+        }
+      },
+      {
+        "id": "TRUEBEAM2",
+        "name": "TRUEBEAM2",
+        "machineType": 1,
+        "localizations": {
+          "SeinLocal": {
+            "item1": 1,
+            "item2": false
+          },
+          "SeinRegional": {
+            "item1": 2,
+            "item2": false
+          },
+          "SeinDIBH": {
+            "item1": 1,
+            "item2": false
+          },
+          "Hematologie": {
+            "item1": 1,
+            "item2": false
+          },
+          "Urologie": {
+            "item1": 0,
+            "item2": true
+          },
+          "Gynecologie": {
+            "item1": 2,
+            "item2": false
+          },
+          "Digestif": {
+            "item1": 1,
+            "item2": false
+          },
+          "Thorax": {
+            "item1": 1,
+            "item2": false
+          },
+          "Crane": {
+            "item1": 0,
+            "item2": true
+          },
+          "Sarcome": {
+            "item1": 1,
+            "item2": false
+          },
+          "ORL": {
+            "item1": 1,
+            "item2": false
+          },
+          "Dermatologie": {
+            "item1": 1,
+            "item2": false
+          },
+          "SpiroPoumon": {
+            "item1": 2,
+            "item2": false
+          },
+          "Medulloblastomes": {
+            "item1": 1,
+            "item2": false
+          },
+          "Membres": {
+            "item1": 1,
+            "item2": false
+          },
+          "Palliatif": {
+            "item1": 1,
+            "item2": false
+          }
+        },
+        "champs": {
+          "item1": 40,
+          "item2": 40
+        }
+      },
+      {
+        "id": "NOVALISTX",
+        "name": "NOVALISTX",
+        "machineType": 2,
+        "localizations": {
+          "Hematologie": {
+            "item1": 2,
+            "item2": false
+          },
+          "Urologie": {
+            "item1": 2,
+            "item2": false
+          },
+          "Gynecologie": {
+            "item1": 2,
+            "item2": false
+          },
+          "Digestif": {
+            "item1": 2,
+            "item2": false
+          },
+          "Thorax": {
+            "item1": 2,
+            "item2": false
+          },
+          "Crane": {
+            "item1": 1,
+            "item2": true
+          },
+          "ORL": {
+            "item1": 2,
+            "item2": false
+          },
+          "SpiroPoumon": {
+            "item1": 2,
+            "item2": false
+          },
+          "Palliatif": {
+            "item1": 2,
+            "item2": false
+          },
+          "StereoIntraExtra": {
+            "item1": 0,
+            "item2": true
+          }
+        },
+        "champs": {
+          "item1": 22,
+          "item2": 40
+        }
+      },
+      {
+        "id": "HALCYON SC",
+        "name": "HALCYON SC",
+        "machineType": 3,
+        "localizations": {
+          "SeinLocal": {
+            "item1": 2,
+            "item2": false
+          },
+          "SeinRegional": {
+            "item1": 0,
+            "item2": true
+          },
+          "Hematologie": {
+            "item1": 2,
+            "item2": false
+          },
+          "Urologie": {
+            "item1": 1,
+            "item2": false
+          },
+          "Gynecologie": {
+            "item1": 0,
+            "item2": true
+          },
+          "Digestif": {
+            "item1": 2,
+            "item2": false
+          },
+          "Sarcome": {
+            "item1": 1,
+            "item2": true
+          },
+          "Crane": {
+            "item1": 2,
+            "item2": false
+          },
+          "ORL": {
+            "item1": 0,
+            "item2": true
+          },
+          "Dermatologie": {
+            "item1": 2,
+            "item2": false
+          },
+          "Medulloblastomes": {
+            "item1": 2,
+            "item2": false
+          },
+          "Palliatif": {
+            "item1": 2,
+            "item2": false
+          }
+        },
+        "champs": {
+          "item1": 28,
+          "item2": 28
+        }
+      }
+    ],
+    "ressources": [],
+    "localisations": {
+      "localisations": [
+        {
+          "type": 0,
+          "name": "SeinLocal"
+        },
+        {
+          "type": 1,
+          "name": "SeinRegional"
+        },
+        {
+          "type": 2,
+          "name": "SeinDIBH"
+        },
+        {
+          "type": 3,
+          "name": "Hematologie"
+        },
+        {
+          "type": 4,
+          "name": "Urologie"
+        },
+        {
+          "type": 5,
+          "name": "Gynecologie"
+        },
+        {
+          "type": 6,
+          "name": "Digestif"
+        },
+        {
+          "type": 7,
+          "name": "Thorax"
+        },
+        {
+          "type": 8,
+          "name": "Crane"
+        },
+        {
+          "type": 9,
+          "name": "Sarcome"
+        },
+        {
+          "type": 10,
+          "name": "ORL"
+        },
+        {
+          "type": 11,
+          "name": "Dermatologie"
+        },
+        {
+          "type": 12,
+          "name": "SpiroPoumon"
+        },
+        {
+          "type": 13,
+          "name": "Medulloblastomes"
+        },
+        {
+          "type": 14,
+          "name": "Membres"
+        },
+        {
+          "type": 15,
+          "name": "Palliatif"
+        },
+        {
+          "type": 16,
+          "name": "StereoIntraExtra"
+        }
+      ]
+    }
+  },
+  {
+    "id": 1,
+    "name": "Paris",
+    "machines": [
+      {
+        "id": "CLINAC5",
+        "name": "CLINAC5",
+        "machineType": 0,
+        "localizations": {
+          "SeinLocal": {
+            "item1": 1,
+            "item2": false
+          },
+          "SeinRegional": {
+            "item1": 3,
+            "item2": false
+          },
+          "SeinDIBH": {
+            "item1": 1,
+            "item2": false
+          },
+          "Hematologie": {
+            "item1": 1,
+            "item2": false
+          },
+          "Urologie": {
+            "item1": 3,
+            "item2": false
+          },
+          "Gynecologie": {
+            "item1": 3,
+            "item2": false
+          },
+          "Digestif": {
+            "item1": 3,
+            "item2": false
+          },
+          "Thorax": {
+            "item1": 3,
+            "item2": false
+          },
+          "Crane": {
+            "item1": 0,
+            "item2": true
+          },
+          "Sarcome": {
+            "item1": 3,
+            "item2": false
+          },
+          "ORL": {
+            "item1": 2,
+            "item2": false
+          },
+          "Dermatologie": {
+            "item1": 1,
+            "item2": false
+          },
+          "SpiroPoumon": {
+            "item1": 3,
+            "item2": false
+          },
+          "Medulloblastomes": {
+            "item1": 3,
+            "item2": false
+          },
+          "Membres": {
+            "item1": 2,
+            "item2": false
+          },
+          "Palliatif": {
+            "item1": 3,
+            "item2": false
+          },
+          "StereoIntraExtra": {
+            "item1": 3,
+            "item2": false
+          }
+        },
+        "champs": {
+          "item1": 99,
+          "item2": 99
+        }
+      },
+      {
+        "id": "K2",
+        "name": "K2 - Xstrahl - X200kV",
+        "machineType": 0,
+        "localizations": {
+          "SeinLocal": {
+            "item1": 3,
+            "item2": false
+          },
+          "SeinRegional": {
+            "item1": 3,
+            "item2": false
+          },
+          "SeinDIBH": {
+            "item1": 3,
+            "item2": false
+          },
+          "Hematologie": {
+            "item1": 3,
+            "item2": false
+          },
+          "Urologie": {
+            "item1": 3,
+            "item2": false
+          },
+          "Gynecologie": {
+            "item1": 3,
+            "item2": false
+          },
+          "Digestif": {
+            "item1": 3,
+            "item2": false
+          },
+          "Thorax": {
+            "item1": 3,
+            "item2": false
+          },
+          "Crane": {
+            "item1": 3,
+            "item2": false
+          },
+          "Sarcome": {
+            "item1": 3,
+            "item2": false
+          },
+          "ORL": {
+            "item1": 3,
+            "item2": false
+          },
+          "Dermatologie": {
+            "item1": 0,
+            "item2": true
+          },
+          "SpiroPoumon": {
+            "item1": 3,
+            "item2": false
+          },
+          "Medulloblastomes": {
+            "item1": 3,
+            "item2": false
+          },
+          "Membres": {
+            "item1": 3,
+            "item2": false
+          },
+          "Palliatif": {
+            "item1": 3,
+            "item2": false
+          },
+          "StereoIntraExtra": {
+            "item1": 3,
+            "item2": false
+          }
+        },
+        "champs": {
+          "item1": 99,
+          "item2": 99
+        }
+      },
+      {
+        "id": "LINAC1",
+        "name": "LINAC1",
+        "machineType": 0,
+        "localizations": {
+          "SeinLocal": {
+            "item1": 1,
+            "item2": false
+          },
+          "SeinRegional": {
+            "item1": 1,
+            "item2": false
+          },
+          "SeinDIBH": {
+            "item1": 1,
+            "item2": false
+          },
+          "Hematologie": {
+            "item1": 1,
+            "item2": false
+          },
+          "Urologie": {
+            "item1": 1,
+            "item2": false
+          },
+          "Gynecologie": {
+            "item1": 1,
+            "item2": false
+          },
+          "Digestif": {
+            "item1": 2,
+            "item2": false
+          },
+          "Thorax": {
+            "item1": 1,
+            "item2": false
+          },
+          "Crane": {
+            "item1": 2,
+            "item2": false
+          },
+          "Sarcome": {
+            "item1": 1,
+            "item2": false
+          },
+          "ORL": {
+            "item1": 2,
+            "item2": false
+          },
+          "Dermatologie": {
+            "item1": 2,
+            "item2": false
+          },
+          "SpiroPoumon": {
+            "item1": 1,
+            "item2": false
+          },
+          "Medulloblastomes": {
+            "item1": 3,
+            "item2": false
+          },
+          "Membres": {
+            "item1": 2,
+            "item2": false
+          },
+          "Palliatif": {
+            "item1": 2,
+            "item2": false
+          },
+          "StereoIntraExtra": {
+            "item1": 0,
+            "item2": true
+          }
+        },
+        "champs": {
+          "item1": 99,
+          "item2": 99
+        }
+      },
+      {
+        "id": "MontBlanc",
+        "name": "MontBlanc",
+        "machineType": 0,
+        "localizations": {
+          "SeinLocal": {
+            "item1": 1,
+            "item2": false
+          },
+          "SeinRegional": {
+            "item1": 1,
+            "item2": false
+          },
+          "SeinDIBH": {
+            "item1": 3,
+            "item2": false
+          },
+          "Hematologie": {
+            "item1": 3,
+            "item2": false
+          },
+          "Urologie": {
+            "item1": 1,
+            "item2": false
+          },
+          "Gynecologie": {
+            "item1": 1,
+            "item2": false
+          },
+          "Digestif": {
+            "item1": 1,
+            "item2": false
+          },
+          "Thorax": {
+            "item1": 3,
+            "item2": false
+          },
+          "Crane": {
+            "item1": 3,
+            "item2": false
+          },
+          "Sarcome": {
+            "item1": 1,
+            "item2": false
+          },
+          "ORL": {
+            "item1": 1,
+            "item2": false
+          },
+          "Dermatologie": {
+            "item1": 3,
+            "item2": false
+          },
+          "SpiroPoumon": {
+            "item1": 1,
+            "item2": false
+          },
+          "Medulloblastomes": {
+            "item1": 3,
+            "item2": false
+          },
+          "Membres": {
+            "item1": 1,
+            "item2": false
+          },
+          "Palliatif": {
+            "item1": 1,
+            "item2": false
+          },
+          "StereoIntraExtra": {
+            "item1": 1,
+            "item2": false
+          }
+        },
+        "champs": {
+          "item1": 28,
+          "item2": 28
+        }
+      },
+      {
+        "id": "MontFuji",
+        "name": "MontFuji",
+        "machineType": 0,
+        "localizations": {
+          "SeinLocal": {
+            "item1": 1,
+            "item2": false
+          },
+          "SeinRegional": {
+            "item1": 1,
+            "item2": false
+          },
+          "SeinDIBH": {
+            "item1": 3,
+            "item2": false
+          },
+          "Hematologie": {
+            "item1": 3,
+            "item2": false
+          },
+          "Urologie": {
+            "item1": 1,
+            "item2": false
+          },
+          "Gynecologie": {
+            "item1": 1,
+            "item2": false
+          },
+          "Digestif": {
+            "item1": 1,
+            "item2": false
+          },
+          "Thorax": {
+            "item1": 3,
+            "item2": false
+          },
+          "Crane": {
+            "item1": 3,
+            "item2": false
+          },
+          "Sarcome": {
+            "item1": 1,
+            "item2": false
+          },
+          "ORL": {
+            "item1": 1,
+            "item2": false
+          },
+          "Dermatologie": {
+            "item1": 3,
+            "item2": false
+          },
+          "SpiroPoumon": {
+            "item1": 1,
+            "item2": false
+          },
+          "Medulloblastomes": {
+            "item1": 3,
+            "item2": false
+          },
+          "Membres": {
+            "item1": 1,
+            "item2": false
+          },
+          "Palliatif": {
+            "item1": 1,
+            "item2": false
+          },
+          "StereoIntraExtra": {
+            "item1": 1,
+            "item2": false
+          }
+        },
+        "champs": {
+          "item1": 28,
+          "item2": 28
+        }
+      }
+    ],
+    "ressources": [
+      {
+        "id": "alelong",
+        "firstName": "Axel",
+        "lastName": "Lelong"
+      }
+    ],
+    "localisations": {
+      "localisations": [
+        {
+          "type": 0,
+          "name": "SeinLocal"
+        },
+        {
+          "type": 1,
+          "name": "SeinRegional"
+        },
+        {
+          "type": 2,
+          "name": "SeinDIBH"
+        },
+        {
+          "type": 3,
+          "name": "Hematologie"
+        },
+        {
+          "type": 4,
+          "name": "Urologie"
+        },
+        {
+          "type": 5,
+          "name": "Gynecologie"
+        },
+        {
+          "type": 6,
+          "name": "Digestif"
+        },
+        {
+          "type": 7,
+          "name": "Thorax"
+        },
+        {
+          "type": 8,
+          "name": "Crane"
+        },
+        {
+          "type": 9,
+          "name": "Sarcome"
+        },
+        {
+          "type": 10,
+          "name": "ORL"
+        },
+        {
+          "type": 11,
+          "name": "Dermatologie"
+        },
+        {
+          "type": 12,
+          "name": "SpiroPoumon"
+        },
+        {
+          "type": 13,
+          "name": "Medulloblastomes"
+        },
+        {
+          "type": 14,
+          "name": "Membres"
+        },
+        {
+          "type": 15,
+          "name": "Palliatif"
+        },
+        {
+          "type": 16,
+          "name": "StereoIntraExtra"
+        }
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "name": "Orsay",
+    "machines": [
+      {
+        "id": "DENALI",
+        "name": "DENALI",
+        "machineType": 0,
+        "localizations": {
+          "SeinLocal": {
+            "item1": 0,
+            "item2": false
+          },
+          "SeinRegional": {
+            "item1": 0,
+            "item2": false
+          },
+          "SeinDIBH": {
+            "item1": 0,
+            "item2": false
+          },
+          "Hematologie": {
+            "item1": 0,
+            "item2": false
+          },
+          "Urologie": {
+            "item1": 0,
+            "item2": false
+          },
+          "Gynecologie": {
+            "item1": 0,
+            "item2": false
+          },
+          "Digestif": {
+            "item1": 0,
+            "item2": false
+          },
+          "Thorax": {
+            "item1": 0,
+            "item2": false
+          },
+          "Crane": {
+            "item1": 0,
+            "item2": false
+          },
+          "Sarcome": {
+            "item1": 0,
+            "item2": false
+          },
+          "ORL": {
+            "item1": 0,
+            "item2": false
+          },
+          "Dermatologie": {
+            "item1": 0,
+            "item2": false
+          },
+          "SpiroPoumon": {
+            "item1": 0,
+            "item2": false
+          },
+          "Medulloblastomes": {
+            "item1": 0,
+            "item2": false
+          },
+          "Membres": {
+            "item1": 0,
+            "item2": false
+          },
+          "Palliatif": {
+            "item1": 0,
+            "item2": false
+          },
+          "StereoIntraExtra": {
+            "item1": 0,
+            "item2": false
+          }
+        },
+        "champs": {
+          "item1": 99,
+          "item2": 99
+        }
+      }
+    ],
+    "ressources": [
+      {
+        "id": "alelong",
+        "firstName": "Axel",
+        "lastName": "Lelong"
+      }
+    ],
+    "localisations": {
+      "localisations": [
+        {
+          "type": 0,
+          "name": "SeinLocal"
+        },
+        {
+          "type": 1,
+          "name": "SeinRegional"
+        },
+        {
+          "type": 2,
+          "name": "SeinDIBH"
+        },
+        {
+          "type": 3,
+          "name": "Hematologie"
+        },
+        {
+          "type": 4,
+          "name": "Urologie"
+        },
+        {
+          "type": 5,
+          "name": "Gynecologie"
+        },
+        {
+          "type": 6,
+          "name": "Digestif"
+        },
+        {
+          "type": 7,
+          "name": "Thorax"
+        },
+        {
+          "type": 8,
+          "name": "Crane"
+        },
+        {
+          "type": 9,
+          "name": "Sarcome"
+        },
+        {
+          "type": 10,
+          "name": "ORL"
+        },
+        {
+          "type": 11,
+          "name": "Dermatologie"
+        },
+        {
+          "type": 12,
+          "name": "SpiroPoumon"
+        },
+        {
+          "type": 13,
+          "name": "Medulloblastomes"
+        },
+        {
+          "type": 14,
+          "name": "Membres"
+        },
+        {
+          "type": 15,
+          "name": "Palliatif"
+        },
+        {
+          "type": 16,
+          "name": "StereoIntraExtra"
+        }
+      ]
+    }
+  }
+]

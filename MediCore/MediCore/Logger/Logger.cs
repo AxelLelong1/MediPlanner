@@ -33,7 +33,7 @@ namespace MediCore.Logger
             var logLine = $"{getLevel(level)} {DateTime.Now}: {level}: {message}";
 
             // Log dans le fichier
-            File.AppendAllText(_logFilePath, logLine + Environment.NewLine);
+            // File.AppendAllText(_logFilePath, logLine + Environment.NewLine);
 
             // Log dans la console avec la couleur appropriée
             Console.ForegroundColor = GetConsoleColor(level);
